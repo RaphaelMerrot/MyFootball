@@ -10,7 +10,9 @@ import Foundation
 
 /// Generic call back
 typealias DataRequestCallBack<T> = (Result<T, Error>) -> Void
+typealias DownloadRequestCallBack = (Result<Data, Error>) -> Void
 typealias SuccessCallBack<T> = (T) -> Void
+typealias DownloadSuccessCallBack = (Data) -> Void
 typealias ErrorCallBack = (Error) -> Void
 
 
@@ -27,6 +29,9 @@ protocol JSONService {
 
     /** Fatch data */
     func fetch<T: Decodable>(url: URL?, success: @escaping SuccessCallBack<T>, failure: @escaping ErrorCallBack)
+
+    /** Download image data */
+    func downloadImage(url: URL?, success: @escaping DownloadSuccessCallBack, failure: @escaping ErrorCallBack)
 }
 
 
@@ -78,6 +83,22 @@ final class JSONServiceImpl: JSONService {
     }
 
 
+    func downloadImage(url: URL?, success: @escaping DownloadSuccessCallBack, failure: @escaping ErrorCallBack) {
+        guard let url = url else {
+            failure(ServiceError.noUrl)
+            return
+        }
+        self.download(url: url) { result in
+            switch result {
+            case .success(let data):
+                success(data)
+            case .failure(let error):
+                failure(error)
+            }
+        }
+    }
+
+
     /** Send the request with session manager to fetch data */
     private func fetch<T: Decodable>(url: URL, _ completion: @escaping DataRequestCallBack<T>) {
         let task = self.sessionManager.dataTask(with: url) { data, response, error in
@@ -102,6 +123,25 @@ final class JSONServiceImpl: JSONService {
             } catch {
                 completion(.failure(ServiceError.decode(error: error)))
             }
+        }
+        task.resume()
+    }
+
+
+    /** Send the request and download image data */
+    private func download(url: URL, _ completion: @escaping DownloadRequestCallBack) {
+        let task = self.sessionManager.dataTask(with: url) { data, response, error in
+            guard error == nil else {
+                completion(.failure(ServiceError.unknown(error: error!)))
+                return
+            }
+
+            guard let data = data else {
+                completion(.failure(ServiceError.noData))
+                return
+            }
+
+            completion(.success(data))
         }
         task.resume()
     }

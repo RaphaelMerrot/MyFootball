@@ -13,7 +13,13 @@ protocol MainPresenterView: AnyObject {
 
     func onViewDidLoad()
 
-    func onSearch(_ isLabelVisible: Bool, _ isTableViewVisible: Bool)
+    func onSearch(_ isLabelVisible: Bool, _ isTableViewVisible: Bool, _ isCollectionViewVisible: Bool)
+
+    func onBadgeDownloaded(index: Int)
+
+    func onDismissKeyboard()
+
+    func onRemoveCells(indexes: [IndexPath])
 
     func onError(_ error: Error, title: String, actionTitle: String)
 }
@@ -44,6 +50,16 @@ final class MainPresenter {
     /// Filtered teams
     private var filteredTeams: [Team]?
 
+    /// Check if we don't have leagues
+    private var isNoLeaguesFound: Bool {
+        return self.filteredLeagues?.isEmpty ?? true
+    }
+
+    /// Check if we don't have teams
+    private var isNoTeamsFound: Bool {
+        return self.filteredTeams?.isEmpty ?? true
+    }
+
 
     init(
         view: MainPresenterView,
@@ -53,6 +69,19 @@ final class MainPresenter {
         self.view = view
         self.leagueService = leagueService
         self.teamService = teamService
+    }
+
+
+    /** Reset filtered teams */
+    private func removeFilteredTeams() {
+        guard let filteredTeams = self.filteredTeams else { return }
+        if filteredTeams.count == 0 { return }
+        var indexes = [IndexPath]()
+        for (index, _) in filteredTeams.enumerated() {
+            indexes.append(IndexPath(row: index, section: 0))
+        }
+        self.filteredTeams = nil
+        self.view?.onRemoveCells(indexes: indexes)
     }
 }
 
@@ -69,10 +98,15 @@ extension MainPresenter {
 
     /// No data text label
     var textLabel: String {
-        if self.filteredLeagues?.count ?? 0 == 1 && self.filteredTeams?.count ?? 0 == 0 {
+        if self.isNoLeaguesFound {
+            return "No leagues found"
+        }
+
+        if self.isNoTeamsFound {
             return "No teams found"
         }
-        return "No leagues found"
+
+        return ""
     }
 
     /// Placeholder of the search bar
@@ -85,6 +119,11 @@ extension MainPresenter {
         return self.filteredLeagues?.count ?? 0
     }
 
+    /// Number of items in collection view
+    var numberOfItems: Int {
+        return self.filteredTeams?.count ?? 0
+    }
+
 
     /** View did load */
     func viewDidLoad() {
@@ -95,22 +134,36 @@ extension MainPresenter {
     /** Search a league */
     func search(searchText: String) {
         if searchText.isEmpty {
+            self.removeFilteredTeams()
             self.filteredLeagues = nil
-            self.view?.onSearch(false, false)
+            self.view?.onSearch(false, false, false)
             return
+        }
+
+        // Trim seach text
+        let searchText = searchText.trimmingCharacters(in: .whitespaces).lowercased()
+
+        // Check if we have same value
+        var previousSearch: League?
+        if let leagues = self.filteredLeagues, leagues.count == 1 {
+            previousSearch = leagues[0]
         }
 
         // Search leagues
         self.filteredLeagues = self.leagues?.filter { league in
-            league.strLeague?.contains(searchText) ?? false || league.strLeagueAlternate?.contains(searchText) ?? false
+            league.strLeague?.lowercased().contains(searchText) ?? false
+                || league.strLeagueAlternate?.lowercased().contains(searchText) ?? false
         }
 
         // Search teams from league if we have one league
-        if let filteredLeagues = self.filteredLeagues, filteredLeagues.count == 1 {
-            let league = filteredLeagues[0]
+        if let filteredLeagues = self.filteredLeagues,
+           filteredLeagues.count == 1,
+           let league = filteredLeagues.first {
+            if league.idLeague == previousSearch?.idLeague { return }
             self.loadTeamsData(from: league)
         } else {
-            self.view?.onSearch(false, true)
+            self.removeFilteredTeams()
+            self.view?.onSearch(self.isNoLeaguesFound, !self.isNoLeaguesFound, false)
         }
     }
 
@@ -121,10 +174,45 @@ extension MainPresenter {
     }
 
 
+    /** Action when user click on a table view cell */
+    func didSelectRow(at index: Int) {
+        guard let league = self.filteredLeagues?[index] else { return }
+        self.filteredLeagues = [league]
+        self.filteredTeams = nil
+        self.loadTeamsData(from: league)
+    }
+
+
     /** Return the league name for an index */
     func leagueName(for index: Int) -> String? {
         let league = self.filteredLeagues?[index]
         return (league?.strLeagueAlternate?.isEmpty ?? false) ? league?.strLeague : league?.strLeagueAlternate
+    }
+
+
+    /** Return one team data */
+    func teamData(for index: Int?) -> Team? {
+        guard let index = index else {
+            return nil
+        }
+        return self.filteredTeams?[index]
+    }
+
+
+    /** Define if we can perform segue or not */
+    func shouldPerformSegue(for index: Int?) -> Bool {
+        guard let index = index else {
+            return false
+        }
+        return self.filteredTeams?[index] != nil
+    }
+
+
+    /** CallBack when all cells are deleted */
+    func removeCellCompleted(isFinished: Bool) {
+        if isFinished {
+            self.view?.onSearch(self.isNoLeaguesFound, !self.isNoLeaguesFound, false)
+        }
     }
 }
 
@@ -147,10 +235,15 @@ extension MainPresenter {
 
     /** Load temas data */
     private func loadTeamsData(from league: League) {
+        // Remove cells
+        self.removeFilteredTeams()
+
         // It's not necessary to download again teams
         if league.isTeamsDownloaded {
-            self.filteredTeams = self.teams?.filter { $0.idLeague == league.idLeague }
-            self.view?.onSearch(false, false)
+            self.filteredTeams = self.teams?.filter({ $0.idLeague == league.idLeague }).sorted(by: {
+                $0.strTeam ?? "" < $1.strTeam ?? ""
+            })
+            self.view?.onSearch(self.isNoTeamsFound, false, !self.isNoTeamsFound)
             return
         }
 
@@ -158,26 +251,54 @@ extension MainPresenter {
         self.teamService.fetchTeams(from: league) { teams in
             // Check if the response is not nil
             guard let teams = teams else {
-                self.view?.onSearch(true, false)
+                self.view?.onSearch(true, false, false)
                 return
             }
 
             // Check if we have teams in response
             guard teams.count > 0 else {
-                self.view?.onSearch(true, false)
+                self.view?.onSearch(true, false, false)
                 return
             }
 
             // Save teams downloaded
-            if self.teams == nil {
-                self.teams = []
-            }
-            self.teams?.append(contentsOf: teams)
-            self.filteredTeams = teams
-            self.view?.onSearch(false, false)
+            self.filteredTeams = teams.sorted(by: { $0.strTeam ?? "" < $1.strTeam ?? "" })
+
+            // Dismiss keyboard
+            self.view?.onDismissKeyboard()
+
+            // Execute onSearch method
+            self.view?.onSearch(false, false, true)
+
+            // Mark that teams are downloaded
+            var league = league
+            league.isTeamsDownloaded = true
+            self.leagueService.updateLeague(leagues: &self.leagues, with: league)
+
+            // Load images
+            self.loadBadges()
         } failure: { error in
             self.view?.onError(error, title: "Error", actionTitle: "Ok")
         }
+    }
 
+
+    /** Load badges */
+    private func loadBadges() {
+        guard let filteredTeams = self.filteredTeams else {
+            self.view?.onSearch(true, false, false)
+            return
+        }
+        for (index, var element) in filteredTeams.enumerated() {
+            guard let url = element.strTeamBadge else { continue }
+            element.isBadgeDownloaded = true
+            self.teamService.downloadImage(from: URL(string: url)) { data in
+                self.teamService.update(teams: &self.teams, with: &element, data: data)
+                self.filteredTeams?[index] = element
+                self.view?.onBadgeDownloaded(index: index)
+            } failure: { error in
+                self.view?.onBadgeDownloaded(index: index)
+            }
+        }
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 
 /// API call back
@@ -17,6 +18,12 @@ protocol TeamService {
 
     /** Retrieve all teams from a league */
     func fetchTeams(from league: League, success: @escaping TeamsCallBack, failure: @escaping ErrorCallBack)
+
+    /** Retrieve image data from url */
+    func downloadImage(from url: URL?, success: @escaping DownloadSuccessCallBack, failure: @escaping ErrorCallBack)
+
+    /** Update team data */
+    func update(teams: inout [Team]?, with team: inout Team, data: Data)
 }
 
 
@@ -39,6 +46,26 @@ final class TeamServiceImpl: TeamService {
         } failure: { error in
             failure(error)
         }
+    }
+
+
+    func downloadImage(from url: URL?, success: @escaping DownloadSuccessCallBack, failure: @escaping ErrorCallBack) {
+        self.service.downloadImage(url: url) { data in
+            success(data)
+        } failure: { error in
+            failure(error)
+        }
+    }
+
+
+    func update(teams: inout [Team]?, with team: inout Team, data: Data) {
+        team.badge = UIImage(data: data)
+        if teams == nil { teams = [Team]() }
+        guard let index = teams?.firstIndex(where: { $0.idTeam == team.idTeam }) else {
+            teams?.append(team)
+            return
+        }
+        teams?[index] = team
     }
 
 

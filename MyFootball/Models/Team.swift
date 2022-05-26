@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 
 /** Represent a list of teams */
@@ -26,9 +27,8 @@ struct Team: Codable {
         case strLeague
         case strLeague2
         case strDescriptionEN
-        case strDescriptionFR
         case strCountry
-        case strTeamLogo
+        case strTeamBadge
         case strTeamBanner
     }
 
@@ -46,11 +46,13 @@ struct Team: Codable {
 
     let strDescriptionEN: String?
 
-    let strDescriptionFR: String?
-
     let strCountry: String?
 
-    let strTeamLogo: String?
+    let strTeamBadge: String?
 
     let strTeamBanner: String?
+
+    var badge: UIImage?
+
+    var isBadgeDownloaded: Bool = false
 }

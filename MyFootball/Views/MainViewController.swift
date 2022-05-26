@@ -13,7 +13,9 @@ final class MainViewController: UIViewController {
 
     /// Identifiers
     private enum Identifier: String {
-        case leagueCell
+        case leagueCellId
+        case teamCellId
+        case detailsSegueId
     }
 
     /// Search leagues bar
@@ -23,7 +25,10 @@ final class MainViewController: UIViewController {
     @IBOutlet private weak var leaguesTableView: UITableView!
 
     /// No data label
-    @IBOutlet weak var noDataLabel: UILabel!
+    @IBOutlet private weak var noDataLabel: UILabel!
+
+    /// Teams collection view
+    @IBOutlet private weak var teamsCollectionView: UICollectionView!
 
     /// Presenter
     private lazy var presenter = MainPresenter(view: self)
@@ -54,18 +59,32 @@ extension MainViewController {
         // Configure table view
         self.leaguesTableView.delegate = self
         self.leaguesTableView.dataSource = self
+        self.leaguesTableView.keyboardDismissMode = .onDrag
+
+        // Configure collection view
+        self.teamsCollectionView.delegate = self
+        self.teamsCollectionView.dataSource = self
+        self.teamsCollectionView.keyboardDismissMode = .onDrag
 
         // Configure search bar
         self.searchBar.delegate = self
         self.searchBar.placeholder = self.presenter.searchBarPlaceholder
+
+        // Keyboard
+        self.hideKeyboardWhenUnfocused()
     }
 
 
     /** Update user interface */
-    private func updateUI(isLabelVisible: Bool = false, isTableViewVisible: Bool = false) {
+    private func updateUI(
+        isLabelVisible: Bool = false,
+        isTableViewVisible: Bool = false,
+        isCollectionViewVisible: Bool = false
+    ) {
         DispatchQueue.main.async {
             self.updateLabel(isLabelVisible)
             self.updateTableView(isTableViewVisible)
+            self.updateCollectionView(isCollectionViewVisible)
         }
     }
 
@@ -79,8 +98,15 @@ extension MainViewController {
 
     /** Update leagues table view */
     private func updateTableView(_ isVisible: Bool) {
-        self.leaguesTableView.isHidden = !isVisible
         self.leaguesTableView.reloadData()
+        self.leaguesTableView.isHidden = !isVisible
+    }
+
+
+    /** Update teams collection view */
+    private func updateCollectionView(_ isVisible: Bool) {
+        self.teamsCollectionView.isHidden = !isVisible
+        self.teamsCollectionView.reloadData()
     }
 }
 
@@ -92,6 +118,11 @@ extension MainViewController: UISearchBarDelegate {
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.presenter.search(searchText: searchText)
+    }
+
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.onDismissKeyboard()
     }
 }
 
@@ -107,7 +138,7 @@ extension MainViewController: UITableViewDataSource {
 
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.leaguesTableView.dequeueReusableCell(withIdentifier: Identifier.leagueCell.rawValue, for: indexPath)
+        let cell = self.leaguesTableView.dequeueReusableCell(withIdentifier: Identifier.leagueCellId.rawValue, for: indexPath)
         cell.textLabel?.text = self.presenter.leagueName(for: indexPath.row)
         return cell
     }
@@ -122,7 +153,58 @@ extension MainViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let text = self.presenter.searchBarText(for: indexPath.row)
         self.searchBar.text = text
-        self.searchBar(self.searchBar, textDidChange: text)
+        self.presenter.didSelectRow(at: indexPath.row)
+    }
+}
+
+
+
+// MARK: UICollectionViewDelegate
+
+extension MainViewController: UICollectionViewDataSource {
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.presenter.numberOfItems
+    }
+
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = self.teamsCollectionView.dequeueReusableCell(
+            withReuseIdentifier: Identifier.teamCellId.rawValue,
+            for: indexPath
+        ) as? TeamCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        cell.presenter = TeamCellPresenter(view: cell, team: self.presenter.teamData(for: indexPath.row))
+        return cell
+    }
+}
+
+
+
+// MARK: UICollectionViewDelegate
+
+extension MainViewController: UICollectionViewDelegate {
+
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        guard identifier == Identifier.detailsSegueId.rawValue else { return true }
+        guard let cell = sender as? TeamCollectionViewCell else { return false }
+        let index = self.teamsCollectionView.indexPath(for: cell)?.row
+        return self.presenter.shouldPerformSegue(for: index)
+    }
+
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == Identifier.detailsSegueId.rawValue else { return }
+        guard let controller = segue.destination as? TeamDetailsViewController else { return }
+        guard let cell = sender as? TeamCollectionViewCell else { return }
+        let team = self.presenter.teamData(for: self.teamsCollectionView.indexPath(for: cell)?.row)
+        controller.presenter = TeamDetailsPresenter(view: controller, team: team)
+    }
+
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.dismissKeyboard()
     }
 }
 
@@ -132,16 +214,49 @@ extension MainViewController: UITableViewDelegate {
 
 extension MainViewController: MainPresenterView {
 
+    /** On view did load */
     func onViewDidLoad() {
         self.updateUI()
     }
 
 
-    func onSearch(_ isLabelVisible: Bool, _ isTableViewVisible: Bool) {
-        self.updateUI(isLabelVisible: isLabelVisible, isTableViewVisible: isTableViewVisible)
+    /** On search */
+    func onSearch(_ isLabelVisible: Bool, _ isTableViewVisible: Bool, _ isCollectionViewVisible: Bool) {
+        self.updateUI(
+            isLabelVisible: isLabelVisible,
+            isTableViewVisible: isTableViewVisible,
+            isCollectionViewVisible: isCollectionViewVisible
+        )
     }
 
 
+    /** On badge image downloaded */
+    func onBadgeDownloaded(index: Int) {
+        DispatchQueue.main.async {
+            self.teamsCollectionView.reloadItems(at: [IndexPath(row: index, section: 0)])
+        }
+    }
+
+
+    /** On dismiss the keyboard */
+    func onDismissKeyboard() {
+        DispatchQueue.main.async {
+            self.searchBar.endEditing(true)
+        }
+    }
+
+
+    /** On remove multiple cells */
+    func onRemoveCells(indexes: [IndexPath]) {
+        self.teamsCollectionView.performBatchUpdates {
+            self.teamsCollectionView.deleteItems(at: indexes)
+        } completion: { isFinished in
+            self.presenter.removeCellCompleted(isFinished: isFinished)
+        }
+    }
+
+
+    /** On error */
     func onError(_ error: Error, title: String, actionTitle: String) {
         let alert = UIAlertController(title: title, message: error.localizedDescription, preferredStyle: .alert)
         let action = UIAlertAction(title: actionTitle, style: .default)
@@ -151,4 +266,3 @@ extension MainViewController: MainPresenterView {
         }
     }
 }
-

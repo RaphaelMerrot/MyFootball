@@ -30,6 +30,10 @@
 		1A99CCB4283F64C800CB36B3 /* TeamServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CCB3283F64C800CB36B3 /* TeamServiceTests.swift */; };
 		1A99CCB6283F710000CB36B3 /* TeamDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CCB5283F710000CB36B3 /* TeamDetailsViewController.swift */; };
 		1A99CCB8283F71B100CB36B3 /* MainViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CCB7283F71B100CB36B3 /* MainViewPresenter.swift */; };
+		1A99CCBA283FA36300CB36B3 /* TeamCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CCB9283FA36300CB36B3 /* TeamCollectionViewCell.swift */; };
+		1A99CCBC283FA7DA00CB36B3 /* TeamCellViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CCBB283FA7DA00CB36B3 /* TeamCellViewPresenter.swift */; };
+		1A99CCBE283FB1F700CB36B3 /* TeamDetailsViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CCBD283FB1F700CB36B3 /* TeamDetailsViewPresenter.swift */; };
+		1A99CCC02840009C00CB36B3 /* UIViewController+GestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CCBF2840009C00CB36B3 /* UIViewController+GestureRecognizer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +72,10 @@
 		1A99CCB3283F64C800CB36B3 /* TeamServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamServiceTests.swift; sourceTree = "<group>"; };
 		1A99CCB5283F710000CB36B3 /* TeamDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDetailsViewController.swift; sourceTree = "<group>"; };
 		1A99CCB7283F71B100CB36B3 /* MainViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewPresenter.swift; sourceTree = "<group>"; };
+		1A99CCB9283FA36300CB36B3 /* TeamCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamCollectionViewCell.swift; sourceTree = "<group>"; };
+		1A99CCBB283FA7DA00CB36B3 /* TeamCellViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamCellViewPresenter.swift; sourceTree = "<group>"; };
+		1A99CCBD283FB1F700CB36B3 /* TeamDetailsViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDetailsViewPresenter.swift; sourceTree = "<group>"; };
+		1A99CCBF2840009C00CB36B3 /* UIViewController+GestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+GestureRecognizer.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,7 +141,9 @@
 			isa = PBXGroup;
 			children = (
 				1A99CC6F283F4B9600CB36B3 /* MainViewController.swift */,
+				1A99CCB9283FA36300CB36B3 /* TeamCollectionViewCell.swift */,
 				1A99CCB5283F710000CB36B3 /* TeamDetailsViewController.swift */,
+				1A99CCBF2840009C00CB36B3 /* UIViewController+GestureRecognizer.swift */,
 				1A99CC71283F4B9600CB36B3 /* Main.storyboard */,
 				1A99CC76283F4B9B00CB36B3 /* LaunchScreen.storyboard */,
 			);
@@ -153,6 +163,8 @@
 			isa = PBXGroup;
 			children = (
 				1A99CCB7283F71B100CB36B3 /* MainViewPresenter.swift */,
+				1A99CCBB283FA7DA00CB36B3 /* TeamCellViewPresenter.swift */,
+				1A99CCBD283FB1F700CB36B3 /* TeamDetailsViewPresenter.swift */,
 				1A99CC95283F4EFF00CB36B3 /* Services */,
 			);
 			path = Presenters;
@@ -324,7 +336,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A99CCBC283FA7DA00CB36B3 /* TeamCellViewPresenter.swift in Sources */,
 				1A99CC70283F4B9600CB36B3 /* MainViewController.swift in Sources */,
+				1A99CCBE283FB1F700CB36B3 /* TeamDetailsViewPresenter.swift in Sources */,
 				1A99CC6C283F4B9600CB36B3 /* AppDelegate.swift in Sources */,
 				1A99CCB8283F71B100CB36B3 /* MainViewPresenter.swift in Sources */,
 				1A99CCB0283F62C200CB36B3 /* Team.swift in Sources */,
@@ -332,7 +346,9 @@
 				1A99CCB2283F631500CB36B3 /* TeamService.swift in Sources */,
 				1A99CC99283F514500CB36B3 /* League.swift in Sources */,
 				1A99CCAA283F5D0D00CB36B3 /* LeagueService.swift in Sources */,
+				1A99CCBA283FA36300CB36B3 /* TeamCollectionViewCell.swift in Sources */,
 				1A99CCB6283F710000CB36B3 /* TeamDetailsViewController.swift in Sources */,
+				1A99CCC02840009C00CB36B3 /* UIViewController+GestureRecognizer.swift in Sources */,
 				1A99CC97283F4F1200CB36B3 /* JSONService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -17,6 +17,9 @@ protocol LeagueService {
 
     /** Retireve all soccer leagues */
     func fetchLeagues(success: @escaping LeaguesCallBack, failure: @escaping ErrorCallBack)
+
+    /** Update league with another league */
+    func updateLeague(leagues: inout [League]?, with league: League)
 }
 
 
@@ -45,5 +48,12 @@ final class LeagueServiceImpl: LeagueService {
         } failure: { error in
             failure(error)
         }
+    }
+
+
+    func updateLeague(leagues: inout [League]?, with league: League) {
+        if leagues == nil { return }
+        guard let index = leagues?.firstIndex(where: { $0.idLeague == league.idLeague }) else { return }
+        leagues?[index] = league
     }
 }
