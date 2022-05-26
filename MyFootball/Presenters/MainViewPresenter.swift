@@ -50,6 +50,9 @@ final class MainPresenter {
     /// Filtered teams
     private var filteredTeams: [Team]?
 
+    /// Check if we are in the search mode or not
+    private var isSearching: Bool = false
+
     /// Check if we don't have leagues
     private var isNoLeaguesFound: Bool {
         return self.filteredLeagues?.isEmpty ?? true
@@ -134,11 +137,15 @@ extension MainPresenter {
     /** Search a league */
     func search(searchText: String) {
         if searchText.isEmpty {
+            self.isSearching = false
             self.removeFilteredTeams()
             self.filteredLeagues = nil
             self.view?.onSearch(false, false, false)
             return
         }
+
+        // Enter in searching mode
+        self.isSearching = true
 
         // Trim seach text
         let searchText = searchText.trimmingCharacters(in: .whitespaces).lowercased()
@@ -211,7 +218,7 @@ extension MainPresenter {
     /** CallBack when all cells are deleted */
     func removeCellCompleted(isFinished: Bool) {
         if isFinished {
-            self.view?.onSearch(self.isNoLeaguesFound, !self.isNoLeaguesFound, false)
+            self.view?.onSearch(self.isSearching, !self.isNoLeaguesFound, false)
         }
     }
 }

@@ -14,6 +14,10 @@ protocol TeamDetailsViewPresenter: AnyObject {
     func onViewDidLoad(team: Team?, isNoDataLabelVisible: Bool)
 
     func onBannerDownloaded(data: Data)
+
+    func startSpinnerAnimation()
+
+    func stopSpinnerAnimation()
 }
 
 
@@ -54,18 +58,19 @@ extension TeamDetailsPresenter {
 
     /// Title view
     var titleView: String? {
-        self.team?.strTeam
+        return self.team?.strTeam
+    }
+
+    ///  League title {
+    var leagueTitle: String? {
+        return self.team?.strLeague2 ?? self.team?.strLeague
     }
 
 
     /** View did load */
     func viewDidLoad() {
-        guard let team = team else {
-            self.view?.onViewDidLoad(team: nil, isNoDataLabelVisible: true)
-            return
-        }
+        self.view?.startSpinnerAnimation()
         self.loadBannerImageData()
-        self.view?.onViewDidLoad(team: team, isNoDataLabelVisible: false)
     }
 }
 
@@ -77,17 +82,20 @@ extension TeamDetailsPresenter {
     /** Load all badge data */
     private func loadBannerImageData() {
         guard let team = self.team else {
+            self.view?.stopSpinnerAnimation()
             self.view?.onViewDidLoad(team: nil, isNoDataLabelVisible: true)
             return
         }
         guard let urlString = team.strTeamBanner else {
+            self.view?.stopSpinnerAnimation()
             self.view?.onViewDidLoad(team: team, isNoDataLabelVisible: false)
             return
         }
         self.teamService.downloadImage(from: URL(string: urlString)) { data in
+            self.view?.stopSpinnerAnimation()
             self.view?.onBannerDownloaded(data: data)
-        } failure: { error in
-            print(error.localizedDescription)
+        } failure: { _ in
+            self.view?.stopSpinnerAnimation()
         }
     }
 }

@@ -71,11 +71,9 @@ final class TeamDetailsViewController: UIViewController {
 
     /** Update stack view elements */
     private func updateStackView(team: Team?, _ isVisible: Bool) {
-        self.spinner.startAnimating()
-        self.spinner.isHidden = false
         self.stackView.isHidden = !isVisible
         self.countryLabel.text = team?.strCountry
-        self.leagueLabel.text = team?.strLeague2
+        self.leagueLabel.text = self.presenter?.leagueTitle
         self.descriptionTextView.text = team?.strDescriptionEN
         self.bannerImageView.isHidden = true
     }
@@ -83,8 +81,6 @@ final class TeamDetailsViewController: UIViewController {
 
     private func updateImageView(data: Data) {
         DispatchQueue.main.async {
-            self.spinner.stopAnimating()
-            self.spinner.isHidden = true
             self.bannerImageView.isHidden = false
             self.bannerImageView.image = UIImage(data: data)
         }
@@ -106,6 +102,24 @@ extension TeamDetailsViewController: TeamDetailsViewPresenter {
     /** On banner image downloaded */
     func onBannerDownloaded(data: Data) {
         self.updateImageView(data: data)
+    }
+
+
+    /** Start spinner animation */
+    func startSpinnerAnimation() {
+        DispatchQueue.main.async {
+            self.spinner.startAnimating()
+            self.spinner.isHidden = false
+        }
+    }
+
+
+    /** Stop spinner annimation */
+    func stopSpinnerAnimation() {
+        DispatchQueue.main.async {
+            self.spinner.stopAnimating()
+            self.spinner.isHidden = true
+        }
     }
 }
 
