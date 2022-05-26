@@ -48,9 +48,9 @@ final class TeamCellPresenter {
     func viewDidLoad() {
         guard let team = self.team else { return }
         if team.isBadgeDownloaded {
-            self.view?.stopSpinnerAnimating()
+            self.view?.stopSpinnerAnimation()
         } else {
-            self.view?.startSpinnerAnimating()
+            self.view?.startSpinnerAnimation()
         }
         self.view?.viewDidLoad(team: team, isPlaceholderVisible: self.isPlaceholderVisible)
     }
