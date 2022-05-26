@@ -29,4 +29,6 @@ struct League: Codable {
     let strSport: String?
 
     let strLeagueAlternate: String?
+
+    var isTeamsDownloaded: Bool = false
 }
