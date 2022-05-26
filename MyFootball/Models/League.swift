@@ -24,9 +24,9 @@ struct League: Codable {
 
     let idLeague: String
 
-    let strLeague: String
+    let strLeague: String?
 
-    let strSport: String
+    let strSport: String?
 
     let strLeagueAlternate: String?
 }

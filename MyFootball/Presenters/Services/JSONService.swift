@@ -18,6 +18,7 @@ typealias ErrorCallBack = (Error) -> Void
 enum API: String {
     case url = "https://thesportsdb.com/api/v1/json/2/"
     case all_leagues = "all_leagues.php"
+    case search_all_teams = "search_all_teams.php?l="
 }
 
 
