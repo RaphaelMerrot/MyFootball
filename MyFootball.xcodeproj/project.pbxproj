@@ -13,8 +13,15 @@
 		1A99CC73283F4B9600CB36B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A99CC71283F4B9600CB36B3 /* Main.storyboard */; };
 		1A99CC75283F4B9B00CB36B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A99CC74283F4B9B00CB36B3 /* Assets.xcassets */; };
 		1A99CC78283F4B9B00CB36B3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A99CC76283F4B9B00CB36B3 /* LaunchScreen.storyboard */; };
-		1A99CC8A283F4C1F00CB36B3 /* MyFootballTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CC89283F4C1F00CB36B3 /* MyFootballTests.swift */; };
 		1A99CC92283F4D5B00CB36B3 /* InstantMock in Frameworks */ = {isa = PBXBuildFile; productRef = 1A99CC91283F4D5B00CB36B3 /* InstantMock */; };
+		1A99CC97283F4F1200CB36B3 /* JSONService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CC96283F4F1200CB36B3 /* JSONService.swift */; };
+		1A99CC99283F514500CB36B3 /* League.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CC98283F514500CB36B3 /* League.swift */; };
+		1A99CC9C283F51B900CB36B3 /* JSONServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CC9B283F51B900CB36B3 /* JSONServiceTests.swift */; };
+		1A99CC9F283F524600CB36B3 /* URLSessionMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CC9E283F524600CB36B3 /* URLSessionMock.swift */; };
+		1A99CCA1283F527B00CB36B3 /* URLSessionDataTaskMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CCA0283F527B00CB36B3 /* URLSessionDataTaskMock.swift */; };
+		1A99CCA3283F52BE00CB36B3 /* JSONDecoderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CCA2283F52BE00CB36B3 /* JSONDecoderMock.swift */; };
+		1A99CCA6283F53BD00CB36B3 /* URL+MockUsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CCA5283F53BD00CB36B3 /* URL+MockUsable.swift */; };
+		1A99CCA8283F548200CB36B3 /* Data+MockUsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CCA7283F548200CB36B3 /* Data+MockUsable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +44,14 @@
 		1A99CC77283F4B9B00CB36B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1A99CC79283F4B9B00CB36B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1A99CC87283F4C1F00CB36B3 /* MyFootballTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyFootballTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1A99CC89283F4C1F00CB36B3 /* MyFootballTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFootballTests.swift; sourceTree = "<group>"; };
+		1A99CC96283F4F1200CB36B3 /* JSONService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONService.swift; sourceTree = "<group>"; };
+		1A99CC98283F514500CB36B3 /* League.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = League.swift; sourceTree = "<group>"; };
+		1A99CC9B283F51B900CB36B3 /* JSONServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONServiceTests.swift; sourceTree = "<group>"; };
+		1A99CC9E283F524600CB36B3 /* URLSessionMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionMock.swift; sourceTree = "<group>"; };
+		1A99CCA0283F527B00CB36B3 /* URLSessionDataTaskMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionDataTaskMock.swift; sourceTree = "<group>"; };
+		1A99CCA2283F52BE00CB36B3 /* JSONDecoderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecoderMock.swift; sourceTree = "<group>"; };
+		1A99CCA5283F53BD00CB36B3 /* URL+MockUsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+MockUsable.swift"; sourceTree = "<group>"; };
+		1A99CCA7283F548200CB36B3 /* Data+MockUsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+MockUsable.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +126,7 @@
 		1A99CC81283F4BE400CB36B3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1A99CC98283F514500CB36B3 /* League.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -119,6 +134,7 @@
 		1A99CC82283F4BEB00CB36B3 /* Presenters */ = {
 			isa = PBXGroup;
 			children = (
+				1A99CC95283F4EFF00CB36B3 /* Services */,
 			);
 			path = Presenters;
 			sourceTree = "<group>";
@@ -126,9 +142,54 @@
 		1A99CC88283F4C1F00CB36B3 /* MyFootballTests */ = {
 			isa = PBXGroup;
 			children = (
-				1A99CC89283F4C1F00CB36B3 /* MyFootballTests.swift */,
+				1A99CC9D283F523000CB36B3 /* Mocks */,
+				1A99CC94283F4EEA00CB36B3 /* Presenters */,
 			);
 			path = MyFootballTests;
+			sourceTree = "<group>";
+		};
+		1A99CC94283F4EEA00CB36B3 /* Presenters */ = {
+			isa = PBXGroup;
+			children = (
+				1A99CC9A283F519200CB36B3 /* Services */,
+			);
+			path = Presenters;
+			sourceTree = "<group>";
+		};
+		1A99CC95283F4EFF00CB36B3 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				1A99CC96283F4F1200CB36B3 /* JSONService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		1A99CC9A283F519200CB36B3 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				1A99CC9B283F51B900CB36B3 /* JSONServiceTests.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		1A99CC9D283F523000CB36B3 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				1A99CCA2283F52BE00CB36B3 /* JSONDecoderMock.swift */,
+				1A99CC9E283F524600CB36B3 /* URLSessionMock.swift */,
+				1A99CCA0283F527B00CB36B3 /* URLSessionDataTaskMock.swift */,
+				1A99CCA4283F52F600CB36B3 /* MockUsable */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		1A99CCA4283F52F600CB36B3 /* MockUsable */ = {
+			isa = PBXGroup;
+			children = (
+				1A99CCA5283F53BD00CB36B3 /* URL+MockUsable.swift */,
+				1A99CCA7283F548200CB36B3 /* Data+MockUsable.swift */,
+			);
+			path = MockUsable;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -187,6 +248,7 @@
 					};
 					1A99CC86283F4C1F00CB36B3 = {
 						CreatedOnToolsVersion = 13.4;
+						LastSwiftMigration = 1340;
 						TestTargetID = 1A99CC67283F4B9600CB36B3;
 					};
 				};
@@ -241,6 +303,8 @@
 				1A99CC70283F4B9600CB36B3 /* ViewController.swift in Sources */,
 				1A99CC6C283F4B9600CB36B3 /* AppDelegate.swift in Sources */,
 				1A99CC6E283F4B9600CB36B3 /* SceneDelegate.swift in Sources */,
+				1A99CC99283F514500CB36B3 /* League.swift in Sources */,
+				1A99CC97283F4F1200CB36B3 /* JSONService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,7 +312,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A99CC8A283F4C1F00CB36B3 /* MyFootballTests.swift in Sources */,
+				1A99CCA1283F527B00CB36B3 /* URLSessionDataTaskMock.swift in Sources */,
+				1A99CCA8283F548200CB36B3 /* Data+MockUsable.swift in Sources */,
+				1A99CC9F283F524600CB36B3 /* URLSessionMock.swift in Sources */,
+				1A99CCA6283F53BD00CB36B3 /* URL+MockUsable.swift in Sources */,
+				1A99CCA3283F52BE00CB36B3 /* JSONDecoderMock.swift in Sources */,
+				1A99CC9C283F51B900CB36B3 /* JSONServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,14 +525,21 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = UPA8L237T8;
 				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = rme.MyFootballTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyFootball.app/MyFootball";
@@ -474,10 +550,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = UPA8L237T8;
 				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = rme.MyFootballTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
