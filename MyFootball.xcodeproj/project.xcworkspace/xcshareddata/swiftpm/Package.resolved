@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "instantmock",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pirishd/InstantMock",
+      "state" : {
+        "revision" : "6a809d12b58969acea71875ef4bb7f2f8c811f99",
+        "version" : "2.5.6"
+      }
+    }
+  ],
+  "version" : 2
+}

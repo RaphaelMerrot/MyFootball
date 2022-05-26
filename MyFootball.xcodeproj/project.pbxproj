@@ -13,7 +13,19 @@
 		1A99CC73283F4B9600CB36B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A99CC71283F4B9600CB36B3 /* Main.storyboard */; };
 		1A99CC75283F4B9B00CB36B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A99CC74283F4B9B00CB36B3 /* Assets.xcassets */; };
 		1A99CC78283F4B9B00CB36B3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A99CC76283F4B9B00CB36B3 /* LaunchScreen.storyboard */; };
+		1A99CC8A283F4C1F00CB36B3 /* MyFootballTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CC89283F4C1F00CB36B3 /* MyFootballTests.swift */; };
+		1A99CC92283F4D5B00CB36B3 /* InstantMock in Frameworks */ = {isa = PBXBuildFile; productRef = 1A99CC91283F4D5B00CB36B3 /* InstantMock */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1A99CC8B283F4C1F00CB36B3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1A99CC60283F4B9600CB36B3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1A99CC67283F4B9600CB36B3;
+			remoteInfo = MyFootball;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		1A99CC68283F4B9600CB36B3 /* MyFootball.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyFootball.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -24,6 +36,8 @@
 		1A99CC74283F4B9B00CB36B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1A99CC77283F4B9B00CB36B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1A99CC79283F4B9B00CB36B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1A99CC87283F4C1F00CB36B3 /* MyFootballTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyFootballTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A99CC89283F4C1F00CB36B3 /* MyFootballTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFootballTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,6 +48,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1A99CC84283F4C1F00CB36B3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A99CC92283F4D5B00CB36B3 /* InstantMock in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -41,6 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				1A99CC6A283F4B9600CB36B3 /* MyFootball */,
+				1A99CC88283F4C1F00CB36B3 /* MyFootballTests */,
 				1A99CC69283F4B9600CB36B3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -49,6 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				1A99CC68283F4B9600CB36B3 /* MyFootball.app */,
+				1A99CC87283F4C1F00CB36B3 /* MyFootballTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -56,15 +80,55 @@
 		1A99CC6A283F4B9600CB36B3 /* MyFootball */ = {
 			isa = PBXGroup;
 			children = (
-				1A99CC6B283F4B9600CB36B3 /* AppDelegate.swift */,
-				1A99CC6D283F4B9600CB36B3 /* SceneDelegate.swift */,
-				1A99CC6F283F4B9600CB36B3 /* ViewController.swift */,
-				1A99CC71283F4B9600CB36B3 /* Main.storyboard */,
+				1A99CC7F283F4BC900CB36B3 /* App */,
+				1A99CC82283F4BEB00CB36B3 /* Presenters */,
+				1A99CC81283F4BE400CB36B3 /* Models */,
+				1A99CC80283F4BDB00CB36B3 /* Views */,
 				1A99CC74283F4B9B00CB36B3 /* Assets.xcassets */,
-				1A99CC76283F4B9B00CB36B3 /* LaunchScreen.storyboard */,
 				1A99CC79283F4B9B00CB36B3 /* Info.plist */,
 			);
 			path = MyFootball;
+			sourceTree = "<group>";
+		};
+		1A99CC7F283F4BC900CB36B3 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				1A99CC6B283F4B9600CB36B3 /* AppDelegate.swift */,
+				1A99CC6D283F4B9600CB36B3 /* SceneDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		1A99CC80283F4BDB00CB36B3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1A99CC6F283F4B9600CB36B3 /* ViewController.swift */,
+				1A99CC71283F4B9600CB36B3 /* Main.storyboard */,
+				1A99CC76283F4B9B00CB36B3 /* LaunchScreen.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		1A99CC81283F4BE400CB36B3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		1A99CC82283F4BEB00CB36B3 /* Presenters */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenters;
+			sourceTree = "<group>";
+		};
+		1A99CC88283F4C1F00CB36B3 /* MyFootballTests */ = {
+			isa = PBXGroup;
+			children = (
+				1A99CC89283F4C1F00CB36B3 /* MyFootballTests.swift */,
+			);
+			path = MyFootballTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -87,6 +151,27 @@
 			productReference = 1A99CC68283F4B9600CB36B3 /* MyFootball.app */;
 			productType = "com.apple.product-type.application";
 		};
+		1A99CC86283F4C1F00CB36B3 /* MyFootballTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1A99CC8D283F4C1F00CB36B3 /* Build configuration list for PBXNativeTarget "MyFootballTests" */;
+			buildPhases = (
+				1A99CC83283F4C1F00CB36B3 /* Sources */,
+				1A99CC84283F4C1F00CB36B3 /* Frameworks */,
+				1A99CC85283F4C1F00CB36B3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1A99CC8C283F4C1F00CB36B3 /* PBXTargetDependency */,
+			);
+			name = MyFootballTests;
+			packageProductDependencies = (
+				1A99CC91283F4D5B00CB36B3 /* InstantMock */,
+			);
+			productName = MyFootballTests;
+			productReference = 1A99CC87283F4C1F00CB36B3 /* MyFootballTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -100,6 +185,10 @@
 					1A99CC67283F4B9600CB36B3 = {
 						CreatedOnToolsVersion = 13.4;
 					};
+					1A99CC86283F4C1F00CB36B3 = {
+						CreatedOnToolsVersion = 13.4;
+						TestTargetID = 1A99CC67283F4B9600CB36B3;
+					};
 				};
 			};
 			buildConfigurationList = 1A99CC63283F4B9600CB36B3 /* Build configuration list for PBXProject "MyFootball" */;
@@ -111,11 +200,15 @@
 				Base,
 			);
 			mainGroup = 1A99CC5F283F4B9600CB36B3;
+			packageReferences = (
+				1A99CC90283F4D5B00CB36B3 /* XCRemoteSwiftPackageReference "InstantMock" */,
+			);
 			productRefGroup = 1A99CC69283F4B9600CB36B3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				1A99CC67283F4B9600CB36B3 /* MyFootball */,
+				1A99CC86283F4C1F00CB36B3 /* MyFootballTests */,
 			);
 		};
 /* End PBXProject section */
@@ -128,6 +221,13 @@
 				1A99CC78283F4B9B00CB36B3 /* LaunchScreen.storyboard in Resources */,
 				1A99CC75283F4B9B00CB36B3 /* Assets.xcassets in Resources */,
 				1A99CC73283F4B9600CB36B3 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1A99CC85283F4C1F00CB36B3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -144,7 +244,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1A99CC83283F4C1F00CB36B3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A99CC8A283F4C1F00CB36B3 /* MyFootballTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1A99CC8C283F4C1F00CB36B3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1A99CC67283F4B9600CB36B3 /* MyFootball */;
+			targetProxy = 1A99CC8B283F4C1F00CB36B3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		1A99CC71283F4B9600CB36B3 /* Main.storyboard */ = {
@@ -336,6 +452,42 @@
 			};
 			name = Release;
 		};
+		1A99CC8E283F4C1F00CB36B3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = UPA8L237T8;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = rme.MyFootballTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyFootball.app/MyFootball";
+			};
+			name = Debug;
+		};
+		1A99CC8F283F4C1F00CB36B3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = UPA8L237T8;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = rme.MyFootballTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyFootball.app/MyFootball";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -357,7 +509,35 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		1A99CC8D283F4C1F00CB36B3 /* Build configuration list for PBXNativeTarget "MyFootballTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A99CC8E283F4C1F00CB36B3 /* Debug */,
+				1A99CC8F283F4C1F00CB36B3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1A99CC90283F4D5B00CB36B3 /* XCRemoteSwiftPackageReference "InstantMock" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pirishd/InstantMock";
+			requirement = {
+				kind = exactVersion;
+				version = 2.5.6;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1A99CC91283F4D5B00CB36B3 /* InstantMock */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1A99CC90283F4D5B00CB36B3 /* XCRemoteSwiftPackageReference "InstantMock" */;
+			productName = InstantMock;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1A99CC60283F4B9600CB36B3 /* Project object */;
 }
