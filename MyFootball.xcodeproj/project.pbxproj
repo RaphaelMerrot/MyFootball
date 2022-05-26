@@ -22,6 +22,9 @@
 		1A99CCA3283F52BE00CB36B3 /* JSONDecoderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CCA2283F52BE00CB36B3 /* JSONDecoderMock.swift */; };
 		1A99CCA6283F53BD00CB36B3 /* URL+MockUsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CCA5283F53BD00CB36B3 /* URL+MockUsable.swift */; };
 		1A99CCA8283F548200CB36B3 /* Data+MockUsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CCA7283F548200CB36B3 /* Data+MockUsable.swift */; };
+		1A99CCAA283F5D0D00CB36B3 /* LeagueService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CCA9283F5D0D00CB36B3 /* LeagueService.swift */; };
+		1A99CCAC283F5EDC00CB36B3 /* JSONServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CCAB283F5EDC00CB36B3 /* JSONServiceMock.swift */; };
+		1A99CCAE283F5F5900CB36B3 /* LeagueServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CCAD283F5F5900CB36B3 /* LeagueServiceTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +55,9 @@
 		1A99CCA2283F52BE00CB36B3 /* JSONDecoderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecoderMock.swift; sourceTree = "<group>"; };
 		1A99CCA5283F53BD00CB36B3 /* URL+MockUsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+MockUsable.swift"; sourceTree = "<group>"; };
 		1A99CCA7283F548200CB36B3 /* Data+MockUsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+MockUsable.swift"; sourceTree = "<group>"; };
+		1A99CCA9283F5D0D00CB36B3 /* LeagueService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueService.swift; sourceTree = "<group>"; };
+		1A99CCAB283F5EDC00CB36B3 /* JSONServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONServiceMock.swift; sourceTree = "<group>"; };
+		1A99CCAD283F5F5900CB36B3 /* LeagueServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueServiceTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +165,7 @@
 		1A99CC95283F4EFF00CB36B3 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				1A99CCA9283F5D0D00CB36B3 /* LeagueService.swift */,
 				1A99CC96283F4F1200CB36B3 /* JSONService.swift */,
 			);
 			path = Services;
@@ -167,6 +174,7 @@
 		1A99CC9A283F519200CB36B3 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				1A99CCAD283F5F5900CB36B3 /* LeagueServiceTests.swift */,
 				1A99CC9B283F51B900CB36B3 /* JSONServiceTests.swift */,
 			);
 			path = Services;
@@ -176,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				1A99CCA2283F52BE00CB36B3 /* JSONDecoderMock.swift */,
+				1A99CCAB283F5EDC00CB36B3 /* JSONServiceMock.swift */,
 				1A99CC9E283F524600CB36B3 /* URLSessionMock.swift */,
 				1A99CCA0283F527B00CB36B3 /* URLSessionDataTaskMock.swift */,
 				1A99CCA4283F52F600CB36B3 /* MockUsable */,
@@ -304,6 +313,7 @@
 				1A99CC6C283F4B9600CB36B3 /* AppDelegate.swift in Sources */,
 				1A99CC6E283F4B9600CB36B3 /* SceneDelegate.swift in Sources */,
 				1A99CC99283F514500CB36B3 /* League.swift in Sources */,
+				1A99CCAA283F5D0D00CB36B3 /* LeagueService.swift in Sources */,
 				1A99CC97283F4F1200CB36B3 /* JSONService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -314,9 +324,11 @@
 			files = (
 				1A99CCA1283F527B00CB36B3 /* URLSessionDataTaskMock.swift in Sources */,
 				1A99CCA8283F548200CB36B3 /* Data+MockUsable.swift in Sources */,
+				1A99CCAE283F5F5900CB36B3 /* LeagueServiceTests.swift in Sources */,
 				1A99CC9F283F524600CB36B3 /* URLSessionMock.swift in Sources */,
 				1A99CCA6283F53BD00CB36B3 /* URL+MockUsable.swift in Sources */,
 				1A99CCA3283F52BE00CB36B3 /* JSONDecoderMock.swift in Sources */,
+				1A99CCAC283F5EDC00CB36B3 /* JSONServiceMock.swift in Sources */,
 				1A99CC9C283F51B900CB36B3 /* JSONServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -14,6 +14,13 @@ typealias SuccessCallBack<T> = (T) -> Void
 typealias ErrorCallBack = (Error) -> Void
 
 
+/** URL and path of the API */
+enum API: String {
+    case url = "https://thesportsdb.com/api/v1/json/2/"
+    case all_leagues = "all_leagues.php"
+}
+
+
 /** Service to execute JSON requests */
 protocol JSONService {
 
