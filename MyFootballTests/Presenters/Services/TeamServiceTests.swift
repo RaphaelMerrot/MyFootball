@@ -108,4 +108,131 @@ final class TeamServiceTests: XCTestCase {
         }
         self.service.verify()
     }
+
+
+    func testDownloadImage_success() {
+        let url = URL(string: "customURL")
+        let expectedData = Data()
+        let successClosure = ArgumentClosureCaptor<DownloadSuccessCallBack>()
+        self.service.expect().call(
+            self.service.downloadImage(url: Arg.any(), success: successClosure.capture(), failure: Arg.closure())
+        ).andDo { _ in
+            successClosure.value?(expectedData)
+        }
+
+        self.teamService.downloadImage(from: url) { data in
+            XCTAssertEqual(data, expectedData)
+        } failure: { _ in
+            XCTFail("error executed")
+        }
+        self.service.verify()
+    }
+
+
+    func testDownloadImage_failure() {
+        let url = URL(string: "customURL")
+        let errorClosure = ArgumentClosureCaptor<ErrorCallBack>()
+        self.service.expect().call(
+            self.service.downloadImage(url: Arg.any(), success: Arg.closure(), failure: errorClosure.capture())
+        ).andDo { _ in
+            errorClosure.value?(DummyError.dummy)
+        }
+
+        self.teamService.downloadImage(from: url) { _ in
+            XCTFail("success executed")
+        } failure: { error in
+            XCTAssertTrue(error is DummyError)
+        }
+        self.service.verify()
+    }
+
+
+    func testUpdate() {
+        var teams:[Team]? = [
+            Team(
+                idTeam: "1",
+                idLeague: "42",
+                strTeam: "Team",
+                strAlternate: "Alternate team",
+                strLeague: "League",
+                strLeague2: "League 2",
+                strDescriptionEN: "Description EN",
+                strCountry: "France",
+                strTeamBadge: "logo.png",
+                strTeamBanner: "banner.jpeg"
+            )
+        ]
+        var team = Team(
+            idTeam: "1",
+            idLeague: "42",
+            strTeam: "Team",
+            strAlternate: "Alternate team",
+            strLeague: "League",
+            strLeague2: "League 2",
+            strDescriptionEN: "Description EN",
+            strCountry: "France",
+            strTeamBadge: "logo.png",
+            strTeamBanner: "banner.jpeg"
+        )
+        let data = UIImage(systemName: "house")!.pngData()!
+        self.teamService.update(teams: &teams, with: &team, data: data)
+        XCTAssertEqual(teams?.count, 1)
+        XCTAssertNotNil(teams?.first?.badge)
+    }
+
+
+    func testUpdate_teamsIsNil() {
+        var teams:[Team]? = nil
+        var team = Team(
+            idTeam: "1",
+            idLeague: "42",
+            strTeam: "Team",
+            strAlternate: "Alternate team",
+            strLeague: "League",
+            strLeague2: "League 2",
+            strDescriptionEN: "Description EN",
+            strCountry: "France",
+            strTeamBadge: "logo.png",
+            strTeamBanner: "banner.jpeg"
+        )
+        let data = UIImage(systemName: "house")!.pngData()!
+        self.teamService.update(teams: &teams, with: &team, data: data)
+        XCTAssertEqual(teams?.count, 1)
+        XCTAssertNotNil(teams?.first?.badge)
+    }
+
+
+    func testUpdate_indexNotFount() {
+        var teams:[Team]? = [
+            Team(
+                idTeam: "2",
+                idLeague: "42",
+                strTeam: "Team",
+                strAlternate: "Alternate team",
+                strLeague: "League",
+                strLeague2: "League 2",
+                strDescriptionEN: "Description EN",
+                strCountry: "France",
+                strTeamBadge: "logo.png",
+                strTeamBanner: "banner.jpeg"
+            )
+        ]
+        var team = Team(
+            idTeam: "1",
+            idLeague: "42",
+            strTeam: "Team",
+            strAlternate: "Alternate team",
+            strLeague: "League",
+            strLeague2: "League 2",
+            strDescriptionEN: "Description EN",
+            strCountry: "France",
+            strTeamBadge: "logo.png",
+            strTeamBanner: "banner.jpeg"
+        )
+        let data = UIImage(systemName: "house")!.pngData()!
+        self.teamService.update(teams: &teams, with: &team, data: data)
+        XCTAssertEqual(teams?.count, 2)
+        XCTAssertNil(teams?.first?.badge)
+        XCTAssertNotNil(teams?.last?.badge)
+    }
 }

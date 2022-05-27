@@ -9,6 +9,7 @@ import Foundation
 import InstantMock
 
 @testable import MyFootball
+import UIKit
 
 
 final class TeamServiceMock: Mock, TeamService {
@@ -24,7 +25,8 @@ final class TeamServiceMock: Mock, TeamService {
 
 
     func update(teams: inout [Team]?, with team: inout Team, data: Data) {
-        super.call(teams, team, data)
+        let service = TeamServiceImpl(service: JSONServiceMock())
+        service.update(teams: &teams, with: &team, data: data)
     }
 
 }

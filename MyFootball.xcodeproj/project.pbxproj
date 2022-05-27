@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1A31C2C22840563800F4B5A8 /* Team+MockUsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A31C2C12840563800F4B5A8 /* Team+MockUsable.swift */; };
 		1A31C2C42840581800F4B5A8 /* TeamDetailsPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A31C2C32840581800F4B5A8 /* TeamDetailsPresenterTests.swift */; };
+		1A31C2C92840CE1600F4B5A8 /* MainPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A31C2C82840CE1600F4B5A8 /* MainPresenterTests.swift */; };
+		1A31C2CD2840D80C00F4B5A8 /* League+MockUsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A31C2CC2840D80C00F4B5A8 /* League+MockUsable.swift */; };
 		1A99CC6C283F4B9600CB36B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CC6B283F4B9600CB36B3 /* AppDelegate.swift */; };
 		1A99CC6E283F4B9600CB36B3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CC6D283F4B9600CB36B3 /* SceneDelegate.swift */; };
 		1A99CC70283F4B9600CB36B3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CC6F283F4B9600CB36B3 /* MainViewController.swift */; };
@@ -57,6 +59,8 @@
 /* Begin PBXFileReference section */
 		1A31C2C12840563800F4B5A8 /* Team+MockUsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Team+MockUsable.swift"; sourceTree = "<group>"; };
 		1A31C2C32840581800F4B5A8 /* TeamDetailsPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDetailsPresenterTests.swift; sourceTree = "<group>"; };
+		1A31C2C82840CE1600F4B5A8 /* MainPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenterTests.swift; sourceTree = "<group>"; };
+		1A31C2CC2840D80C00F4B5A8 /* League+MockUsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "League+MockUsable.swift"; sourceTree = "<group>"; };
 		1A99CC68283F4B9600CB36B3 /* MyFootball.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyFootball.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A99CC6B283F4B9600CB36B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1A99CC6D283F4B9600CB36B3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -198,6 +202,7 @@
 		1A99CC94283F4EEA00CB36B3 /* Presenters */ = {
 			isa = PBXGroup;
 			children = (
+				1A31C2C82840CE1600F4B5A8 /* MainPresenterTests.swift */,
 				1A99CCCF28404D3800CB36B3 /* TeamCellPresenterTests.swift */,
 				1A31C2C32840581800F4B5A8 /* TeamDetailsPresenterTests.swift */,
 				1A99CC9A283F519200CB36B3 /* Services */,
@@ -239,6 +244,7 @@
 			isa = PBXGroup;
 			children = (
 				1A99CCA7283F548200CB36B3 /* Data+MockUsable.swift */,
+				1A31C2CC2840D80C00F4B5A8 /* League+MockUsable.swift */,
 				1A31C2C12840563800F4B5A8 /* Team+MockUsable.swift */,
 				1A99CCA5283F53BD00CB36B3 /* URL+MockUsable.swift */,
 			);
@@ -260,8 +266,8 @@
 			isa = PBXGroup;
 			children = (
 				1A99CCC428404ADE00CB36B3 /* LeagueServiceMock.swift */,
-				1A99CCC728404B4D00CB36B3 /* TeamServiceMock.swift */,
 				1A99CCAB283F5EDC00CB36B3 /* JSONServiceMock.swift */,
+				1A99CCC728404B4D00CB36B3 /* TeamServiceMock.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -408,6 +414,7 @@
 				1A99CCD028404D3800CB36B3 /* TeamCellPresenterTests.swift in Sources */,
 				1A99CCA1283F527B00CB36B3 /* URLSessionDataTaskMock.swift in Sources */,
 				1A99CCA8283F548200CB36B3 /* Data+MockUsable.swift in Sources */,
+				1A31C2C92840CE1600F4B5A8 /* MainPresenterTests.swift in Sources */,
 				1A99CCC528404ADE00CB36B3 /* LeagueServiceMock.swift in Sources */,
 				1A99CCC828404B4D00CB36B3 /* TeamServiceMock.swift in Sources */,
 				1A99CCAE283F5F5900CB36B3 /* LeagueServiceTests.swift in Sources */,
@@ -421,6 +428,7 @@
 				1A99CCAC283F5EDC00CB36B3 /* JSONServiceMock.swift in Sources */,
 				1A99CCCE28404C1C00CB36B3 /* TeamDetailsViewPresenterMock.swift in Sources */,
 				1A99CC9C283F51B900CB36B3 /* JSONServiceTests.swift in Sources */,
+				1A31C2CD2840D80C00F4B5A8 /* League+MockUsable.swift in Sources */,
 				1A99CCB4283F64C800CB36B3 /* TeamServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -505,7 +513,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -559,7 +567,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -593,7 +601,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -621,7 +629,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -645,7 +653,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyFootball.app/MyFootball";
 			};
 			name = Debug;
@@ -669,7 +677,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyFootball.app/MyFootball";
 			};
 			name = Release;

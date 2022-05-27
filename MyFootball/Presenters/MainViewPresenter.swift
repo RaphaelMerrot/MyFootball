@@ -78,7 +78,6 @@ final class MainPresenter {
     /** Reset filtered teams */
     private func removeFilteredTeams() {
         guard let filteredTeams = self.filteredTeams else { return }
-        if filteredTeams.count == 0 { return }
         var indexes = [IndexPath]()
         for (index, _) in filteredTeams.enumerated() {
             indexes.append(IndexPath(row: index, section: 0))
@@ -193,7 +192,7 @@ extension MainPresenter {
     /** Return the league name for an index */
     func leagueName(for index: Int) -> String? {
         let league = self.filteredLeagues?[index]
-        return (league?.strLeagueAlternate?.isEmpty ?? false) ? league?.strLeague : league?.strLeagueAlternate
+        return (league?.strLeagueAlternate?.isEmpty ?? true) ? league?.strLeague : league?.strLeagueAlternate
     }
 
 
@@ -269,7 +268,8 @@ extension MainPresenter {
             }
 
             // Save teams downloaded
-            self.filteredTeams = teams.sorted(by: { $0.strTeam ?? "" < $1.strTeam ?? "" })
+            let sortedTeams = teams.sorted(by: { $0.strTeam ?? "" < $1.strTeam ?? "" })
+            self.filteredTeams = sortedTeams
 
             // Dismiss keyboard
             self.view?.onDismissKeyboard()
@@ -283,7 +283,7 @@ extension MainPresenter {
             self.leagueService.updateLeague(leagues: &self.leagues, with: league)
 
             // Load images
-            self.loadBadges()
+            self.loadBadges(filteredTeams: sortedTeams)
         } failure: { error in
             self.view?.onError(error, title: "Error", actionTitle: "Ok")
         }
@@ -291,11 +291,7 @@ extension MainPresenter {
 
 
     /** Load badges */
-    private func loadBadges() {
-        guard let filteredTeams = self.filteredTeams else {
-            self.view?.onSearch(true, false, false)
-            return
-        }
+    private func loadBadges(filteredTeams: [Team]) {
         for (index, var element) in filteredTeams.enumerated() {
             guard let url = element.strTeamBadge else { continue }
             element.isBadgeDownloaded = true

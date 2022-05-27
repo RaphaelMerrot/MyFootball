@@ -136,6 +136,11 @@ final class JSONServiceImpl: JSONService {
                 return
             }
 
+            if let mimeType = response?.mimeType, !mimeType.hasPrefix("image") {
+                completion(.failure(ServiceError.mimeType(type: mimeType)))
+                return
+            }
+
             guard let data = data else {
                 completion(.failure(ServiceError.noData))
                 return

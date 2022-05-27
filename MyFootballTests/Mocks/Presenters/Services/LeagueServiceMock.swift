@@ -19,7 +19,8 @@ final class LeagueServiceMock: Mock, LeagueService {
 
 
     func updateLeague(leagues: inout [League]?, with league: League) {
-        super.call(leagues, league)
+        let service = LeagueServiceImpl(service: JSONServiceMock())
+        service.updateLeague(leagues: &leagues, with: league)
     }
     
 }

@@ -70,6 +70,7 @@ extension TeamDetailsPresenter {
     /** View did load */
     func viewDidLoad() {
         self.view?.startSpinnerAnimation()
+        self.view?.onViewDidLoad(team: self.team, isNoDataLabelVisible: self.team == nil )
         self.loadBannerImageData()
     }
 }
