@@ -225,6 +225,16 @@ extension MainPresenter {
             self.view?.onSearch(self.isSearching, !self.isNoLeaguesFound, false)
         }
     }
+
+
+    /** Pull to refresh action */
+    func refresh() {
+        self.leagues = nil
+        self.teams = nil
+        self.filteredLeagues = nil
+        self.filteredTeams = nil
+        self.loadLeaguesData()
+    }
 }
 
 
@@ -242,7 +252,7 @@ extension MainPresenter {
             self.view?.onError(
                 error,
                 title: self.translation.translate(for: "error"),
-                actionTitle: self.translation.translate(for: "ok")
+                actionTitle: self.translation.translate(for: "cancel")
             )
         }
     }
@@ -297,7 +307,7 @@ extension MainPresenter {
             self.view?.onError(
                 error,
                 title: self.translation.translate(for: "error"),
-                actionTitle: self.translation.translate(for: "ok")
+                actionTitle: self.translation.translate(for: "cancel")
             )
         }
     }

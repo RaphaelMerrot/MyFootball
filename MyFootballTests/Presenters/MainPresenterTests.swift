@@ -1060,4 +1060,34 @@ final class MainPresenterTests: XCTestCase {
         self.teamService.verify()
     }
 
+
+    func testRefresh_success() {
+        let leagues = Leagues(leagues: nil)
+        let successClosure = ArgumentClosureCaptor<LeaguesCallBack>()
+        self.leagueService.expect().call(
+            self.leagueService.fetchLeagues(success: successClosure.capture(), failure: Arg.closure())
+        ).andDo { _ in
+            successClosure.value?(leagues.leagues)
+        }
+        self.view.expect().call(self.view.onViewDidLoad())
+        self.presenter.refresh()
+        self.view.verify()
+    }
+
+
+    func testRefresh_error() {
+        let errorClosure = ArgumentClosureCaptor<ErrorCallBack>()
+        self.leagueService.expect().call(
+            self.leagueService.fetchLeagues(success: Arg.closure(), failure: errorClosure.capture())
+        ).andDo { _ in
+            errorClosure.value?(DummyError.dummy)
+        }
+        self.view.expect().call(
+            self.view.onViewDidLoad(),
+            count: 0
+        )
+        self.presenter.refresh()
+        self.view.verify()
+    }
+
 }

@@ -19,5 +19,5 @@
 /** Error title */
 "error" = "Error";
 
-/** Ok title */
-"ok" = "Ok";
+/** Cancel title */
+"cancel" = "Cancel";

@@ -30,6 +30,9 @@ final class MainViewController: UIViewController {
     /// Teams collection view
     @IBOutlet private weak var teamsCollectionView: UICollectionView!
 
+    /// Refresh control
+    private lazy var refreshControl = UIRefreshControl()
+
     /// Presenter
     private lazy var presenter = MainPresenter(view: self)
 
@@ -60,6 +63,8 @@ extension MainViewController {
         self.leaguesTableView.delegate = self
         self.leaguesTableView.dataSource = self
         self.leaguesTableView.keyboardDismissMode = .onDrag
+        self.leaguesTableView.addSubview(self.refreshControl)
+        self.refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
 
         // Configure collection view
         self.teamsCollectionView.delegate = self
@@ -98,6 +103,7 @@ extension MainViewController {
 
     /** Update leagues table view */
     private func updateTableView(_ isVisible: Bool) {
+        self.refreshControl.endRefreshing()
         self.leaguesTableView.reloadData()
         self.leaguesTableView.isHidden = !isVisible
     }
@@ -107,6 +113,12 @@ extension MainViewController {
     private func updateCollectionView(_ isVisible: Bool) {
         self.teamsCollectionView.isHidden = !isVisible
         self.teamsCollectionView.reloadData()
+    }
+
+
+    @objc private func refresh() {
+        self.searchBar.text = nil
+        self.presenter.refresh()
     }
 }
 
@@ -216,7 +228,7 @@ extension MainViewController: MainPresenterView {
 
     /** On view did load */
     func onViewDidLoad() {
-        self.updateUI()
+        self.updateUI(isTableViewVisible: true)
     }
 
 
@@ -259,8 +271,8 @@ extension MainViewController: MainPresenterView {
     /** On error */
     func onError(_ error: Error, title: String, actionTitle: String) {
         let alert = UIAlertController(title: title, message: error.localizedDescription, preferredStyle: .alert)
-        let action = UIAlertAction(title: actionTitle, style: .default)
-        alert.addAction(action)
+        let cancelAction = UIAlertAction(title: actionTitle, style: .cancel)
+        alert.addAction(cancelAction)
         DispatchQueue.main.async {
             self.present(alert, animated: true)
         }
