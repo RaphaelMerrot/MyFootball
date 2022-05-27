@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A31C2C22840563800F4B5A8 /* Team+MockUsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A31C2C12840563800F4B5A8 /* Team+MockUsable.swift */; };
+		1A31C2C42840581800F4B5A8 /* TeamDetailsPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A31C2C32840581800F4B5A8 /* TeamDetailsPresenterTests.swift */; };
 		1A99CC6C283F4B9600CB36B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CC6B283F4B9600CB36B3 /* AppDelegate.swift */; };
 		1A99CC6E283F4B9600CB36B3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CC6D283F4B9600CB36B3 /* SceneDelegate.swift */; };
 		1A99CC70283F4B9600CB36B3 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CC6F283F4B9600CB36B3 /* MainViewController.swift */; };
@@ -34,6 +36,12 @@
 		1A99CCBC283FA7DA00CB36B3 /* TeamCellViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CCBB283FA7DA00CB36B3 /* TeamCellViewPresenter.swift */; };
 		1A99CCBE283FB1F700CB36B3 /* TeamDetailsViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CCBD283FB1F700CB36B3 /* TeamDetailsViewPresenter.swift */; };
 		1A99CCC02840009C00CB36B3 /* UIViewController+GestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CCBF2840009C00CB36B3 /* UIViewController+GestureRecognizer.swift */; };
+		1A99CCC528404ADE00CB36B3 /* LeagueServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CCC428404ADE00CB36B3 /* LeagueServiceMock.swift */; };
+		1A99CCC828404B4D00CB36B3 /* TeamServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CCC728404B4D00CB36B3 /* TeamServiceMock.swift */; };
+		1A99CCCA28404BE900CB36B3 /* MainPresenterViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CCC928404BE900CB36B3 /* MainPresenterViewMock.swift */; };
+		1A99CCCC28404C0200CB36B3 /* TeamCellViewPresenterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CCCB28404C0200CB36B3 /* TeamCellViewPresenterMock.swift */; };
+		1A99CCCE28404C1C00CB36B3 /* TeamDetailsViewPresenterMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CCCD28404C1C00CB36B3 /* TeamDetailsViewPresenterMock.swift */; };
+		1A99CCD028404D3800CB36B3 /* TeamCellPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A99CCCF28404D3800CB36B3 /* TeamCellPresenterTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +55,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A31C2C12840563800F4B5A8 /* Team+MockUsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Team+MockUsable.swift"; sourceTree = "<group>"; };
+		1A31C2C32840581800F4B5A8 /* TeamDetailsPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDetailsPresenterTests.swift; sourceTree = "<group>"; };
 		1A99CC68283F4B9600CB36B3 /* MyFootball.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyFootball.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A99CC6B283F4B9600CB36B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1A99CC6D283F4B9600CB36B3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +86,12 @@
 		1A99CCBB283FA7DA00CB36B3 /* TeamCellViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamCellViewPresenter.swift; sourceTree = "<group>"; };
 		1A99CCBD283FB1F700CB36B3 /* TeamDetailsViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDetailsViewPresenter.swift; sourceTree = "<group>"; };
 		1A99CCBF2840009C00CB36B3 /* UIViewController+GestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+GestureRecognizer.swift"; sourceTree = "<group>"; };
+		1A99CCC428404ADE00CB36B3 /* LeagueServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeagueServiceMock.swift; sourceTree = "<group>"; };
+		1A99CCC728404B4D00CB36B3 /* TeamServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamServiceMock.swift; sourceTree = "<group>"; };
+		1A99CCC928404BE900CB36B3 /* MainPresenterViewMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenterViewMock.swift; sourceTree = "<group>"; };
+		1A99CCCB28404C0200CB36B3 /* TeamCellViewPresenterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamCellViewPresenterMock.swift; sourceTree = "<group>"; };
+		1A99CCCD28404C1C00CB36B3 /* TeamDetailsViewPresenterMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDetailsViewPresenterMock.swift; sourceTree = "<group>"; };
+		1A99CCCF28404D3800CB36B3 /* TeamCellPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamCellPresenterTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +198,8 @@
 		1A99CC94283F4EEA00CB36B3 /* Presenters */ = {
 			isa = PBXGroup;
 			children = (
+				1A99CCCF28404D3800CB36B3 /* TeamCellPresenterTests.swift */,
+				1A31C2C32840581800F4B5A8 /* TeamDetailsPresenterTests.swift */,
 				1A99CC9A283F519200CB36B3 /* Services */,
 			);
 			path = Presenters;
@@ -210,10 +228,8 @@
 		1A99CC9D283F523000CB36B3 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				1A99CCA2283F52BE00CB36B3 /* JSONDecoderMock.swift */,
-				1A99CCAB283F5EDC00CB36B3 /* JSONServiceMock.swift */,
-				1A99CC9E283F524600CB36B3 /* URLSessionMock.swift */,
-				1A99CCA0283F527B00CB36B3 /* URLSessionDataTaskMock.swift */,
+				1A99CCC128404A9100CB36B3 /* Presenters */,
+				1A99CCC328404AA900CB36B3 /* Utils */,
 				1A99CCA4283F52F600CB36B3 /* MockUsable */,
 			);
 			path = Mocks;
@@ -222,10 +238,42 @@
 		1A99CCA4283F52F600CB36B3 /* MockUsable */ = {
 			isa = PBXGroup;
 			children = (
-				1A99CCA5283F53BD00CB36B3 /* URL+MockUsable.swift */,
 				1A99CCA7283F548200CB36B3 /* Data+MockUsable.swift */,
+				1A31C2C12840563800F4B5A8 /* Team+MockUsable.swift */,
+				1A99CCA5283F53BD00CB36B3 /* URL+MockUsable.swift */,
 			);
 			path = MockUsable;
+			sourceTree = "<group>";
+		};
+		1A99CCC128404A9100CB36B3 /* Presenters */ = {
+			isa = PBXGroup;
+			children = (
+				1A99CCC928404BE900CB36B3 /* MainPresenterViewMock.swift */,
+				1A99CCCB28404C0200CB36B3 /* TeamCellViewPresenterMock.swift */,
+				1A99CCCD28404C1C00CB36B3 /* TeamDetailsViewPresenterMock.swift */,
+				1A99CCC228404A9A00CB36B3 /* Services */,
+			);
+			path = Presenters;
+			sourceTree = "<group>";
+		};
+		1A99CCC228404A9A00CB36B3 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				1A99CCC428404ADE00CB36B3 /* LeagueServiceMock.swift */,
+				1A99CCC728404B4D00CB36B3 /* TeamServiceMock.swift */,
+				1A99CCAB283F5EDC00CB36B3 /* JSONServiceMock.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		1A99CCC328404AA900CB36B3 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				1A99CCA2283F52BE00CB36B3 /* JSONDecoderMock.swift */,
+				1A99CC9E283F524600CB36B3 /* URLSessionMock.swift */,
+				1A99CCA0283F527B00CB36B3 /* URLSessionDataTaskMock.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -357,13 +405,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A99CCD028404D3800CB36B3 /* TeamCellPresenterTests.swift in Sources */,
 				1A99CCA1283F527B00CB36B3 /* URLSessionDataTaskMock.swift in Sources */,
 				1A99CCA8283F548200CB36B3 /* Data+MockUsable.swift in Sources */,
+				1A99CCC528404ADE00CB36B3 /* LeagueServiceMock.swift in Sources */,
+				1A99CCC828404B4D00CB36B3 /* TeamServiceMock.swift in Sources */,
 				1A99CCAE283F5F5900CB36B3 /* LeagueServiceTests.swift in Sources */,
 				1A99CC9F283F524600CB36B3 /* URLSessionMock.swift in Sources */,
 				1A99CCA6283F53BD00CB36B3 /* URL+MockUsable.swift in Sources */,
+				1A31C2C22840563800F4B5A8 /* Team+MockUsable.swift in Sources */,
 				1A99CCA3283F52BE00CB36B3 /* JSONDecoderMock.swift in Sources */,
+				1A99CCCC28404C0200CB36B3 /* TeamCellViewPresenterMock.swift in Sources */,
+				1A99CCCA28404BE900CB36B3 /* MainPresenterViewMock.swift in Sources */,
+				1A31C2C42840581800F4B5A8 /* TeamDetailsPresenterTests.swift in Sources */,
 				1A99CCAC283F5EDC00CB36B3 /* JSONServiceMock.swift in Sources */,
+				1A99CCCE28404C1C00CB36B3 /* TeamDetailsViewPresenterMock.swift in Sources */,
 				1A99CC9C283F51B900CB36B3 /* JSONServiceTests.swift in Sources */,
 				1A99CCB4283F64C800CB36B3 /* TeamServiceTests.swift in Sources */,
 			);

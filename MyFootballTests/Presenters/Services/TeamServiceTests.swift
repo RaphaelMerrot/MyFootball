@@ -42,9 +42,8 @@ final class TeamServiceTests: XCTestCase {
                 strLeague: "League",
                 strLeague2: "League 2",
                 strDescriptionEN: "Description EN",
-                strDescriptionFR: "Description FR",
                 strCountry: "France",
-                strTeamLogo: "logo.png",
+                strTeamBadge: "logo.png",
                 strTeamBanner: nil
             )
         ])
@@ -65,9 +64,8 @@ final class TeamServiceTests: XCTestCase {
             XCTAssertEqual(value?.strLeague, teams.teams?.first?.strLeague)
             XCTAssertEqual(value?.strLeague2, teams.teams?.first?.strLeague2)
             XCTAssertEqual(value?.strDescriptionEN, teams.teams?.first?.strDescriptionEN)
-            XCTAssertEqual(value?.strDescriptionFR, teams.teams?.first?.strDescriptionFR)
             XCTAssertEqual(value?.strCountry, teams.teams?.first?.strCountry)
-            XCTAssertEqual(value?.strTeamLogo, teams.teams?.first?.strTeamLogo)
+            XCTAssertEqual(value?.strTeamBadge, teams.teams?.first?.strTeamBadge)
             XCTAssertNil(value?.strTeamBanner)
         } failure: { _ in
             XCTFail("error executed")

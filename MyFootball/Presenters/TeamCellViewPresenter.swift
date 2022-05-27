@@ -27,18 +27,18 @@ final class TeamCellPresenter {
     private weak var view: TeamCellViewPresenter?
 
     /// Team data
-    private let team: Team?
+    private let team: Team
 
     /// Check if placeholder must be visible or not
     private var isPlaceholderVisible: Bool {
-        guard let team = self.team else {
-            return true
-        }
-        return team.isBadgeDownloaded && team.badge == nil
+        return self.team.isBadgeDownloaded && self.team.badge == nil
     }
 
 
-    init(view: TeamCellViewPresenter, team: Team?) {
+    init?(view: TeamCellViewPresenter, team: Team?) {
+        guard let team = team else {
+            return nil
+        }
         self.view = view
         self.team = team
     }
@@ -46,8 +46,7 @@ final class TeamCellPresenter {
 
     /** View did load */
     func viewDidLoad() {
-        guard let team = self.team else { return }
-        if team.isBadgeDownloaded {
+        if self.team.isBadgeDownloaded {
             self.view?.stopSpinnerAnimation()
         } else {
             self.view?.startSpinnerAnimation()
@@ -63,9 +62,6 @@ extension TeamCellPresenter {
 
     /// Placeholder
     var placeholder: String? {
-        guard let team = self.team else {
-            return "No data available"
-        }
         return team.isBadgeDownloaded && team.badge == nil ? team.strTeam : nil
     }
 }

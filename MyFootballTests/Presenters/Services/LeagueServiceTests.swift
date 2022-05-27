@@ -72,4 +72,34 @@ final class LeagueServiceTests: XCTestCase {
         }
         self.service.verify()
     }
+
+
+    func testUpdateLeague_nil() {
+        var leagues: [League]? = nil
+        let league = League(idLeague: "42", strLeague: "league", strSport: "Rugby", strLeagueAlternate: "Rgb", isTeamsDownloaded: true)
+        self.leagueService.updateLeague(leagues: &leagues, with: league)
+        XCTAssertNil(leagues)
+    }
+
+
+    func testUpdateLeague_notFound() {
+        var leagues: [League]? = [
+            League(idLeague: "43", strLeague: "league", strSport: "Rugby", strLeagueAlternate: "Rgb", isTeamsDownloaded: false)
+        ]
+        let league = League(idLeague: "42", strLeague: "league", strSport: "Rugby", strLeagueAlternate: "Rgb", isTeamsDownloaded: true)
+        self.leagueService.updateLeague(leagues: &leagues, with: league)
+        XCTAssertNotNil(leagues)
+        XCTAssertFalse(leagues?.first?.isTeamsDownloaded ?? true)
+    }
+
+
+    func testUpdateLeague() {
+        var leagues: [League]? = [
+            League(idLeague: "42", strLeague: "league", strSport: "Rugby", strLeagueAlternate: "Rgb", isTeamsDownloaded: false)
+        ]
+        let league = League(idLeague: "42", strLeague: "league", strSport: "Rugby", strLeagueAlternate: "Rgb", isTeamsDownloaded: true)
+        self.leagueService.updateLeague(leagues: &leagues, with: league)
+        XCTAssertNotNil(leagues)
+        XCTAssertTrue(leagues?.first?.isTeamsDownloaded ?? false)
+    }
 }
