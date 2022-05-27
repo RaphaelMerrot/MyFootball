@@ -74,7 +74,7 @@ final class TeamDetailsViewController: UIViewController {
         self.stackView.isHidden = !isVisible
         self.countryLabel.text = team?.strCountry
         self.leagueLabel.text = self.presenter?.leagueTitle
-        self.descriptionTextView.text = team?.strDescriptionEN
+        self.descriptionTextView.text = self.presenter?.decription
         self.bannerImageView.isHidden = true
     }
 

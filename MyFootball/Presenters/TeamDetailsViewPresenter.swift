@@ -34,15 +34,20 @@ final class TeamDetailsPresenter {
     /// Team service dependency
     private let teamService: TeamService
 
+    /// Translation tools
+    private let translation: Translation
+
 
     init(
         view: TeamDetailsViewPresenter,
         team: Team?,
-        teamService: TeamService = TeamServiceImpl()
+        teamService: TeamService = TeamServiceImpl(),
+        translation: Translation = TranslationImpl()
     ) {
         self.view = view
         self.team = team
         self.teamService = teamService
+        self.translation = translation
     }
 }
 
@@ -53,7 +58,7 @@ extension TeamDetailsPresenter {
 
     /// No data text
     var noDataText: String {
-        return "Cannot load team data"
+        return self.translation.translate(for: "teamNotLoaded")
     }
 
     /// Title view
@@ -65,6 +70,15 @@ extension TeamDetailsPresenter {
     var leagueTitle: String? {
         return self.team?.strLeague2 ?? self.team?.strLeague
     }
+
+    ///  Description title {
+    var decription: String? {
+        if self.translation.languageCode == "en" {
+            return self.team?.strDescriptionEN
+        }
+        return self.team?.strDescriptionFR ?? self.team?.strDescriptionEN
+    }
+
 
 
     /** View did load */

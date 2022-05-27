@@ -27,6 +27,7 @@ struct Team: Codable {
         case strLeague
         case strLeague2
         case strDescriptionEN
+        case strDescriptionFR
         case strCountry
         case strTeamBadge
         case strTeamBanner
@@ -45,6 +46,8 @@ struct Team: Codable {
     let strLeague2: String?
 
     let strDescriptionEN: String?
+
+    let strDescriptionFR: String?
 
     let strCountry: String?
 

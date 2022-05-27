@@ -38,6 +38,9 @@ final class MainPresenter {
     /// Team service dependency
     private let teamService: TeamService
 
+    /// Translation tools
+    private let translation: Translation
+
     /// Leagues downloaded
     private var leagues: [League]?
 
@@ -67,11 +70,13 @@ final class MainPresenter {
     init(
         view: MainPresenterView,
         leagueService: LeagueService = LeagueServiceImpl(),
-        teamService: TeamService = TeamServiceImpl()
+        teamService: TeamService = TeamServiceImpl(),
+        translation: Translation = TranslationImpl()
     ) {
         self.view = view
         self.leagueService = leagueService
         self.teamService = teamService
+        self.translation = translation
     }
 
 
@@ -95,17 +100,17 @@ extension MainPresenter {
 
     /// View title
     var titleView: String {
-        return "Welcome to MyFootball"
+        return self.translation.translate(for: "welcome")
     }
 
     /// No data text label
     var textLabel: String {
         if self.isNoLeaguesFound {
-            return "No leagues found"
+            return self.translation.translate(for: "noLeaguesFound")
         }
 
         if self.isNoTeamsFound {
-            return "No teams found"
+            return self.translation.translate(for: "noTeamsFound")
         }
 
         return ""
@@ -113,7 +118,7 @@ extension MainPresenter {
 
     /// Placeholder of the search bar
     var searchBarPlaceholder: String {
-        return "Search your league"
+        return self.translation.translate(for: "searchPlacholder")
     }
 
     /// Number of rows in table view
@@ -234,7 +239,11 @@ extension MainPresenter {
             self.leagues = leagues
             self.view?.onViewDidLoad()
         } failure: { error in
-            self.view?.onError(error, title: "Error", actionTitle: "Ok")
+            self.view?.onError(
+                error,
+                title: self.translation.translate(for: "error"),
+                actionTitle: self.translation.translate(for: "ok")
+            )
         }
     }
 
@@ -285,7 +294,11 @@ extension MainPresenter {
             // Load images
             self.loadBadges(filteredTeams: sortedTeams)
         } failure: { error in
-            self.view?.onError(error, title: "Error", actionTitle: "Ok")
+            self.view?.onError(
+                error,
+                title: self.translation.translate(for: "error"),
+                actionTitle: self.translation.translate(for: "ok")
+            )
         }
     }
 

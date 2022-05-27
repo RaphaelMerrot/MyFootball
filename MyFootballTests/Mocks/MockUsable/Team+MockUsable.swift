@@ -21,6 +21,7 @@ extension Team: MockUsable {
         strLeague: "League",
         strLeague2: "League 2",
         strDescriptionEN: "Description EN",
+        strDescriptionFR: "Description FR",
         strCountry: "France",
         strTeamBadge: "logo.png",
         strTeamBanner: "banner.jpeg"

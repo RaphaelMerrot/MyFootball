@@ -26,6 +26,8 @@ final class MainPresenterTests: XCTestCase {
 
     private var presenter: MainPresenter!
 
+    private var translation: TranslationMock!
+
 
     override func setUp() {
         super.setUp()
@@ -33,25 +35,31 @@ final class MainPresenterTests: XCTestCase {
         self.view = MainPresenterViewMock()
         self.leagueService = LeagueServiceMock()
         self.teamService = TeamServiceMock()
-        self.presenter = MainPresenter(view: self.view, leagueService: self.leagueService, teamService: self.teamService)
+        self.translation = TranslationMock()
+        self.presenter = MainPresenter(
+            view: self.view,
+            leagueService: self.leagueService,
+            teamService: self.teamService,
+            translation: self.translation
+        )
     }
 
 
     func testTitleView() {
         let title = self.presenter.titleView
-        XCTAssertEqual(title, "Welcome to MyFootball")
+        XCTAssertEqual(title, self.translation.translate(for: "welcome"))
     }
 
 
     func testSearchBarPlaceHolder() {
         let placeholder = self.presenter.searchBarPlaceholder
-        XCTAssertEqual(placeholder, "Search your league")
+        XCTAssertEqual(placeholder, self.translation.translate(for: "searchPlaceholder"))
     }
 
 
     func testTextLabel_isNoLeaguesFound() {
         let textLabel = self.presenter.textLabel
-        XCTAssertEqual(textLabel, "No leagues found")
+        XCTAssertEqual(textLabel, self.translation.translate(for: "noLeaguesFound"))
     }
 
 
@@ -70,7 +78,7 @@ final class MainPresenterTests: XCTestCase {
         self.presenter.viewDidLoad()
         self.presenter.search(searchText: "test")
         let textLabel = self.presenter.textLabel
-        XCTAssertEqual(textLabel, "No teams found")
+        XCTAssertEqual(textLabel, self.translation.translate(for: "noTeamsFound"))
     }
 
 
@@ -90,6 +98,7 @@ final class MainPresenterTests: XCTestCase {
                 strLeague: "League",
                 strLeague2: "League 2",
                 strDescriptionEN: "Description EN",
+                strDescriptionFR: "Descitpion FR",
                 strCountry: "France",
                 strTeamBadge: nil,
                 strTeamBanner: "banner.jpeg"
@@ -216,6 +225,7 @@ final class MainPresenterTests: XCTestCase {
                 strLeague: "League",
                 strLeague2: "League 2",
                 strDescriptionEN: "Description EN",
+                strDescriptionFR: "Description FR",
                 strCountry: "France",
                 strTeamBadge: nil,
                 strTeamBanner: "banner.jpeg"
@@ -336,6 +346,7 @@ final class MainPresenterTests: XCTestCase {
                     strLeague: "League",
                     strLeague2: "League 2",
                     strDescriptionEN: "Description EN",
+                    strDescriptionFR: "Descitpion FR",
                     strCountry: "France",
                     strTeamBadge: nil,
                     strTeamBanner: "banner.jpeg"
@@ -405,6 +416,7 @@ final class MainPresenterTests: XCTestCase {
                     strLeague: "League",
                     strLeague2: "League 2",
                     strDescriptionEN: "Description EN",
+                    strDescriptionFR: "Descitpion FR",
                     strCountry: "France",
                     strTeamBadge: nil,
                     strTeamBanner: "banner.jpeg"
@@ -521,6 +533,7 @@ final class MainPresenterTests: XCTestCase {
                 strLeague: "League",
                 strLeague2: "League 2",
                 strDescriptionEN: "Description EN",
+                strDescriptionFR: "Descitpion FR",
                 strCountry: "France",
                 strTeamBadge: nil,
                 strTeamBanner: "banner.jpeg"
@@ -582,6 +595,7 @@ final class MainPresenterTests: XCTestCase {
                 strLeague: "League",
                 strLeague2: "League 2",
                 strDescriptionEN: "Description EN",
+                strDescriptionFR: "Descitpion FR",
                 strCountry: "France",
                 strTeamBadge: nil,
                 strTeamBanner: "banner.jpeg"
@@ -635,6 +649,7 @@ final class MainPresenterTests: XCTestCase {
                 strLeague: "League",
                 strLeague2: "League 2",
                 strDescriptionEN: "Description EN",
+                strDescriptionFR: "Descitpion FR",
                 strCountry: "France",
                 strTeamBadge: nil,
                 strTeamBanner: "banner.jpeg"
@@ -825,6 +840,7 @@ final class MainPresenterTests: XCTestCase {
                 strLeague: "League",
                 strLeague2: "League 2",
                 strDescriptionEN: "Description EN",
+                strDescriptionFR: "Descitpion FR",
                 strCountry: "France",
                 strTeamBadge: "badges.png",
                 strTeamBanner: "banner.jpeg"
@@ -837,6 +853,7 @@ final class MainPresenterTests: XCTestCase {
                 strLeague: "League",
                 strLeague2: "League 2",
                 strDescriptionEN: "Description EN",
+                strDescriptionFR: "Descitpion FR",
                 strCountry: "France",
                 strTeamBadge: "badges.png",
                 strTeamBanner: "banner.jpeg"
@@ -849,6 +866,7 @@ final class MainPresenterTests: XCTestCase {
                 strLeague: "League",
                 strLeague2: "League 2",
                 strDescriptionEN: "Description EN",
+                strDescriptionFR: "Descitpion FR",
                 strCountry: "France",
                 strTeamBadge: "badges.png",
                 strTeamBanner: "banner.jpeg"
@@ -914,6 +932,7 @@ final class MainPresenterTests: XCTestCase {
                 strLeague: "League",
                 strLeague2: "League 2",
                 strDescriptionEN: "Description EN",
+                strDescriptionFR: "Descitpion FR",
                 strCountry: "France",
                 strTeamBadge: "badges.png",
                 strTeamBanner: "banner.jpeg"
@@ -926,6 +945,7 @@ final class MainPresenterTests: XCTestCase {
                 strLeague: "League",
                 strLeague2: "League 2",
                 strDescriptionEN: "Description EN",
+                strDescriptionFR: "Descitpion FR",
                 strCountry: "France",
                 strTeamBadge: "badges.png",
                 strTeamBanner: "banner.jpeg"
@@ -938,6 +958,7 @@ final class MainPresenterTests: XCTestCase {
                 strLeague: "League",
                 strLeague2: "League 2",
                 strDescriptionEN: "Description EN",
+                strDescriptionFR: "Descitpion FR",
                 strCountry: "France",
                 strTeamBadge: "badges.png",
                 strTeamBanner: "banner.jpeg"
@@ -996,6 +1017,7 @@ final class MainPresenterTests: XCTestCase {
                 strLeague: "League",
                 strLeague2: "League 2",
                 strDescriptionEN: "Description EN",
+                strDescriptionFR: "Descitpion FR",
                 strCountry: "France",
                 strTeamBadge: "badges.png",
                 strTeamBanner: "banner.jpeg"

@@ -22,17 +22,25 @@ final class TeamDetailsPresenterTests: XCTestCase {
 
     private var teamService: TeamServiceMock!
 
+    private var translation: TranslationMock!
+
 
     override func setUp() {
         super.setUp()
         self.view = TeamDetailsViewPresenterMock()
         self.teamService = TeamServiceMock()
+        self.translation = TranslationMock()
     }
 
 
     func testNoDataText() {
-        let presenter = TeamDetailsPresenter(view: self.view, team: nil, teamService: self.teamService)
-        XCTAssertEqual(presenter.noDataText, "Cannot load team data")
+        let presenter = TeamDetailsPresenter(
+            view: self.view,
+            team: nil,
+            teamService: self.teamService,
+            translation: self.translation
+        )
+        XCTAssertEqual(presenter.noDataText, self.translation.translate(for: "teamNotLoaded"))
     }
 
 
@@ -45,17 +53,28 @@ final class TeamDetailsPresenterTests: XCTestCase {
             strLeague: "League",
             strLeague2: "League 2",
             strDescriptionEN: "Description EN",
+            strDescriptionFR: "Description FR",
             strCountry: "France",
             strTeamBadge: "logo.png",
             strTeamBanner: nil
         )
-        let presenter = TeamDetailsPresenter(view: self.view, team: team, teamService: self.teamService)
+        let presenter = TeamDetailsPresenter(
+            view: self.view,
+            team: team,
+            teamService: self.teamService,
+            translation: self.translation
+        )
         XCTAssertEqual(presenter.titleView, team.strTeam)
     }
 
 
     func testTitleView_nil() {
-        let presenter = TeamDetailsPresenter(view: self.view, team: nil, teamService: self.teamService)
+        let presenter = TeamDetailsPresenter(
+            view: self.view,
+            team: nil,
+            teamService: self.teamService,
+            translation: self.translation
+        )
         XCTAssertNil(presenter.titleView)
     }
 
@@ -69,11 +88,17 @@ final class TeamDetailsPresenterTests: XCTestCase {
             strLeague: "League",
             strLeague2: "League 2",
             strDescriptionEN: "Description EN",
+            strDescriptionFR: "Description FR",
             strCountry: "France",
             strTeamBadge: "logo.png",
             strTeamBanner: nil
         )
-        let presenter = TeamDetailsPresenter(view: self.view, team: team, teamService: self.teamService)
+        let presenter = TeamDetailsPresenter(
+            view: self.view,
+            team: team,
+            teamService: self.teamService,
+            translation: self.translation
+        )
         XCTAssertEqual(presenter.leagueTitle, team.strLeague2)
     }
 
@@ -87,18 +112,104 @@ final class TeamDetailsPresenterTests: XCTestCase {
             strLeague: "League",
             strLeague2: nil,
             strDescriptionEN: "Description EN",
+            strDescriptionFR: "Descitpion FR",
             strCountry: "France",
             strTeamBadge: "logo.png",
             strTeamBanner: nil
         )
-        let presenter = TeamDetailsPresenter(view: self.view, team: team, teamService: self.teamService)
+        let presenter = TeamDetailsPresenter(
+            view: self.view,
+            team: team,
+            teamService: self.teamService,
+            translation: self.translation
+        )
         XCTAssertEqual(presenter.leagueTitle, team.strLeague)
     }
 
 
     func testLeagueTitle_nil() {
-        let presenter = TeamDetailsPresenter(view: self.view, team: nil, teamService: self.teamService)
+        let presenter = TeamDetailsPresenter(
+            view: self.view,
+            team: nil,
+            teamService: self.teamService,
+            translation: self.translation
+        )
         XCTAssertNil(presenter.leagueTitle)
+    }
+
+
+    func testDescription_en() {
+        let team = Team(
+            idTeam: "1",
+            idLeague: "42",
+            strTeam: "Team",
+            strAlternate: "Alternate team",
+            strLeague: "League",
+            strLeague2: "League 2",
+            strDescriptionEN: "Description EN",
+            strDescriptionFR: "Description FR",
+            strCountry: "France",
+            strTeamBadge: "logo.png",
+            strTeamBanner: nil
+        )
+        self.translation.stub().call(self.translation.languageCode).andReturn("en")
+        let presenter = TeamDetailsPresenter(
+            view: self.view,
+            team: team,
+            teamService: self.teamService,
+            translation: self.translation
+        )
+        XCTAssertEqual(team.strDescriptionEN, presenter.decription)
+    }
+
+
+    func testDescription_fr() {
+        let team = Team(
+            idTeam: "1",
+            idLeague: "42",
+            strTeam: "Team",
+            strAlternate: "Alternate team",
+            strLeague: "League",
+            strLeague2: "League 2",
+            strDescriptionEN: "Description EN",
+            strDescriptionFR: "Description FR",
+            strCountry: "France",
+            strTeamBadge: "logo.png",
+            strTeamBanner: nil
+        )
+        self.translation.stub().call(self.translation.languageCode).andReturn("fr")
+        let presenter = TeamDetailsPresenter(
+            view: self.view,
+            team: team,
+            teamService: self.teamService,
+            translation: self.translation
+        )
+        XCTAssertEqual(team.strDescriptionFR, presenter.decription)
+    }
+
+
+    func testDescription_fr_default_english() {
+        let team = Team(
+            idTeam: "1",
+            idLeague: "42",
+            strTeam: "Team",
+            strAlternate: "Alternate team",
+            strLeague: "League",
+            strLeague2: "League 2",
+            strDescriptionEN: "Description EN",
+            strDescriptionFR: nil,
+            strCountry: "France",
+            strTeamBadge: "logo.png",
+            strTeamBanner: nil
+        )
+        self.translation.stub().call(self.translation.languageCode).andReturn("fr")
+        let presenter = TeamDetailsPresenter(
+            view: self.view,
+            team: team,
+            teamService: self.teamService,
+            translation: self.translation
+        )
+        XCTAssertEqual(team.strDescriptionEN, presenter.decription)
     }
 
 
@@ -112,7 +223,12 @@ final class TeamDetailsPresenterTests: XCTestCase {
         self.view.expect().call(
             self.view.onViewDidLoad(team: Arg.eq(nil), isNoDataLabelVisible: Arg.eq(true))
         )
-        let presenter = TeamDetailsPresenter(view: self.view, team: nil, teamService: self.teamService)
+        let presenter = TeamDetailsPresenter(
+            view: self.view,
+            team: nil,
+            teamService: self.teamService,
+            translation: self.translation
+        )
         presenter.viewDidLoad()
         self.view.verify()
     }
@@ -127,6 +243,7 @@ final class TeamDetailsPresenterTests: XCTestCase {
             strLeague: "League",
             strLeague2: "League 2",
             strDescriptionEN: "Description EN",
+            strDescriptionFR: "Description FR",
             strCountry: "France",
             strTeamBadge: "logo.png",
             strTeamBanner: nil
@@ -140,7 +257,12 @@ final class TeamDetailsPresenterTests: XCTestCase {
         self.view.expect().call(
             self.view.onViewDidLoad(team: Arg.any(), isNoDataLabelVisible: Arg.eq(false))
         )
-        let presenter = TeamDetailsPresenter(view: self.view, team: team, teamService: self.teamService)
+        let presenter = TeamDetailsPresenter(
+            view: self.view,
+            team: team,
+            teamService: self.teamService,
+            translation: self.translation
+        )
         presenter.viewDidLoad()
         self.view.verify()
     }
@@ -156,6 +278,7 @@ final class TeamDetailsPresenterTests: XCTestCase {
             strLeague: "League",
             strLeague2: "League 2",
             strDescriptionEN: "Description EN",
+            strDescriptionFR: "Description FR",
             strCountry: "France",
             strTeamBadge: "logo.png",
             strTeamBanner: "banner.jpeg"
@@ -175,7 +298,12 @@ final class TeamDetailsPresenterTests: XCTestCase {
             successClosure.value?(Data())
         }
 
-        let presenter = TeamDetailsPresenter(view: self.view, team: team, teamService: self.teamService)
+        let presenter = TeamDetailsPresenter(
+            view: self.view,
+            team: team,
+            teamService: self.teamService,
+            translation: self.translation
+        )
         presenter.viewDidLoad()
         self.view.verify()
         self.teamService.verify()
@@ -192,6 +320,7 @@ final class TeamDetailsPresenterTests: XCTestCase {
             strLeague: "League",
             strLeague2: "League 2",
             strDescriptionEN: "Description EN",
+            strDescriptionFR: "Description FR",
             strCountry: "France",
             strTeamBadge: "logo.png",
             strTeamBanner: "banner.jpeg"
@@ -208,7 +337,12 @@ final class TeamDetailsPresenterTests: XCTestCase {
             errorClosure.value?(DummyError.dummy)
         }
 
-        let presenter = TeamDetailsPresenter(view: self.view, team: team, teamService: self.teamService)
+        let presenter = TeamDetailsPresenter(
+            view: self.view,
+            team: team,
+            teamService: self.teamService,
+            translation: self.translation
+        )
         presenter.viewDidLoad()
         self.view.verify()
         self.teamService.verify()

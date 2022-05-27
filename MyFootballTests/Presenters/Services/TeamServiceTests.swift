@@ -42,6 +42,7 @@ final class TeamServiceTests: XCTestCase {
                 strLeague: "League",
                 strLeague2: "League 2",
                 strDescriptionEN: "Description EN",
+                strDescriptionFR: "Description FR",
                 strCountry: "France",
                 strTeamBadge: "logo.png",
                 strTeamBanner: nil
@@ -157,6 +158,7 @@ final class TeamServiceTests: XCTestCase {
                 strLeague: "League",
                 strLeague2: "League 2",
                 strDescriptionEN: "Description EN",
+                strDescriptionFR: "Description FR",
                 strCountry: "France",
                 strTeamBadge: "logo.png",
                 strTeamBanner: "banner.jpeg"
@@ -170,6 +172,7 @@ final class TeamServiceTests: XCTestCase {
             strLeague: "League",
             strLeague2: "League 2",
             strDescriptionEN: "Description EN",
+            strDescriptionFR: "Description FR",
             strCountry: "France",
             strTeamBadge: "logo.png",
             strTeamBanner: "banner.jpeg"
@@ -191,6 +194,7 @@ final class TeamServiceTests: XCTestCase {
             strLeague: "League",
             strLeague2: "League 2",
             strDescriptionEN: "Description EN",
+            strDescriptionFR: "Description FR",
             strCountry: "France",
             strTeamBadge: "logo.png",
             strTeamBanner: "banner.jpeg"
@@ -212,6 +216,7 @@ final class TeamServiceTests: XCTestCase {
                 strLeague: "League",
                 strLeague2: "League 2",
                 strDescriptionEN: "Description EN",
+                strDescriptionFR: "Description FR",
                 strCountry: "France",
                 strTeamBadge: "logo.png",
                 strTeamBanner: "banner.jpeg"
@@ -225,6 +230,7 @@ final class TeamServiceTests: XCTestCase {
             strLeague: "League",
             strLeague2: "League 2",
             strDescriptionEN: "Description EN",
+            strDescriptionFR: "Description FR",
             strCountry: "France",
             strTeamBadge: "logo.png",
             strTeamBanner: "banner.jpeg"

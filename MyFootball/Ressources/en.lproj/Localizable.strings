@@ -1,0 +1,23 @@
+/** Language code */
+"languageCode" = "en";
+
+/** Welcome to the application */
+"welcome" = "Welcome to MyFootball";
+
+/** No leagues found */
+"noLeaguesFound" = "No leagues found";
+
+/** No teams found */
+"noTeamsFound" = "No teams found";
+
+/** Search placeholder */
+"searchPlacholder" = "Search your league";
+
+/** Team not loaded */
+"teamNotLoaded" = "Cannot load team data";
+
+/** Error title */
+"error" = "Error";
+
+/** Ok title */
+"ok" = "Ok";
