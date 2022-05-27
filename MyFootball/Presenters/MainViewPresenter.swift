@@ -56,14 +56,29 @@ final class MainPresenter {
     /// Check if we are in the search mode or not
     private var isSearching: Bool = false
 
-    /// Check if we don't have leagues
-    private var isNoLeaguesFound: Bool {
-        return self.filteredLeagues?.isEmpty ?? true
+    /// Define if the error label is visible or not
+    private var isErrorLableVisible: Bool {
+        guard self.isSearching else { return false }
+        guard let filteredLeagues = self.filteredLeagues else { return true }
+        if filteredLeagues.count == 0 { return true }
+        if filteredLeagues.count == 1 && self.filteredTeams?.isEmpty ?? true { return true }
+        return false
     }
 
-    /// Check if we don't have teams
-    private var isNoTeamsFound: Bool {
-        return self.filteredTeams?.isEmpty ?? true
+
+    /// Define if the table view is visible or not
+    private var isTableViewVisible: Bool {
+        guard self.isSearching else { return true }
+        guard let filteredLeagues = self.filteredLeagues else { return false }
+        if filteredLeagues.count == 0 { return false }
+        if filteredLeagues.count == 1 && !(self.filteredTeams?.isEmpty ?? true) { return false }
+        return true
+    }
+
+
+    /// Define if teams collection view is visible or not
+    private var isCollectionViewVisible: Bool {
+        return !self.isErrorLableVisible && !self.isTableViewVisible
     }
 
 
@@ -104,16 +119,20 @@ extension MainPresenter {
     }
 
     /// No data text label
-    var textLabel: String {
-        if self.isNoLeaguesFound {
+    var textLabel: String? {
+        guard self.isSearching else {
+            return nil
+        }
+        guard let filteredLeagues = self.filteredLeagues else {
             return self.translation.translate(for: "noLeaguesFound")
         }
-
-        if self.isNoTeamsFound {
+        if filteredLeagues.isEmpty {
+            return self.translation.translate(for: "noLeaguesFound")
+        }
+        if filteredLeagues.count == 1 && self.filteredTeams?.isEmpty ?? true {
             return self.translation.translate(for: "noTeamsFound")
         }
-
-        return ""
+        return nil
     }
 
     /// Placeholder of the search bar
@@ -144,7 +163,7 @@ extension MainPresenter {
             self.isSearching = false
             self.removeFilteredTeams()
             self.filteredLeagues = nil
-            self.view?.onSearch(false, false, false)
+            self.view?.onSearch(self.isErrorLableVisible, self.isTableViewVisible, self.isCollectionViewVisible)
             return
         }
 
@@ -174,7 +193,7 @@ extension MainPresenter {
             self.loadTeamsData(from: league)
         } else {
             self.removeFilteredTeams()
-            self.view?.onSearch(self.isNoLeaguesFound, !self.isNoLeaguesFound, false)
+            self.view?.onSearch(self.isErrorLableVisible, self.isTableViewVisible, self.isCollectionViewVisible)
         }
     }
 
@@ -222,7 +241,7 @@ extension MainPresenter {
     /** CallBack when all cells are deleted */
     func removeCellCompleted(isFinished: Bool) {
         if isFinished {
-            self.view?.onSearch(self.isSearching, !self.isNoLeaguesFound, false)
+            self.view?.onSearch(self.isErrorLableVisible, self.isTableViewVisible, self.isCollectionViewVisible)
         }
     }
 
@@ -268,7 +287,7 @@ extension MainPresenter {
             self.filteredTeams = self.teams?.filter({ $0.idLeague == league.idLeague }).sorted(by: {
                 $0.strTeam ?? "" < $1.strTeam ?? ""
             })
-            self.view?.onSearch(self.isNoTeamsFound, false, !self.isNoTeamsFound)
+            self.view?.onSearch(self.isErrorLableVisible, self.isTableViewVisible, self.isCollectionViewVisible)
             return
         }
 
@@ -276,13 +295,13 @@ extension MainPresenter {
         self.teamService.fetchTeams(from: league) { teams in
             // Check if the response is not nil
             guard let teams = teams else {
-                self.view?.onSearch(true, false, false)
+                self.view?.onSearch(self.isErrorLableVisible, self.isTableViewVisible, self.isCollectionViewVisible)
                 return
             }
 
             // Check if we have teams in response
             guard teams.count > 0 else {
-                self.view?.onSearch(true, false, false)
+                self.view?.onSearch(self.isErrorLableVisible, self.isTableViewVisible, self.isCollectionViewVisible)
                 return
             }
 
@@ -294,7 +313,7 @@ extension MainPresenter {
             self.view?.onDismissKeyboard()
 
             // Execute onSearch method
-            self.view?.onSearch(false, false, true)
+            self.view?.onSearch(self.isErrorLableVisible, self.isTableViewVisible, self.isCollectionViewVisible)
 
             // Mark that teams are downloaded
             var league = league

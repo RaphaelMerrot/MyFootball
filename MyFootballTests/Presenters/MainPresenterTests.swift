@@ -57,13 +57,13 @@ final class MainPresenterTests: XCTestCase {
     }
 
 
-    func testTextLabel_isNoLeaguesFound() {
+    func testTextLabel_isEmpty() {
         let textLabel = self.presenter.textLabel
-        XCTAssertEqual(textLabel, self.translation.translate(for: "noLeaguesFound"))
+        XCTAssertEqual(textLabel, nil)
     }
 
 
-    func testTextLabel_isNoTeamsFound() {
+    func testTextLabel_isEmpty_withLeagues() {
         let leagues = Leagues(leagues: [
             League(idLeague: "1", strLeague: "test", strSport: "Soccer", strLeagueAlternate: "test", isTeamsDownloaded: true),
             League(idLeague: "2", strLeague: "test2", strSport: "Soccer", strLeagueAlternate: "test2", isTeamsDownloaded: true)
@@ -78,12 +78,84 @@ final class MainPresenterTests: XCTestCase {
         self.presenter.viewDidLoad()
         self.presenter.search(searchText: "test")
         let textLabel = self.presenter.textLabel
+        XCTAssertEqual(textLabel, nil)
+    }
+
+
+    func testTextLabel_leaguesNotFound() {
+        let leagues = Leagues(leagues: [
+            League(idLeague: "1", strLeague: "test", strSport: "Soccer", strLeagueAlternate: "test", isTeamsDownloaded: true),
+            League(idLeague: "2", strLeague: "test2", strSport: "Soccer", strLeagueAlternate: "test2", isTeamsDownloaded: true)
+        ])
+        let successClosure = ArgumentClosureCaptor<LeaguesCallBack>()
+        self.leagueService.expect().call(
+            self.leagueService.fetchLeagues(success: successClosure.capture(), failure: Arg.closure())
+        ).andDo { _ in
+            successClosure.value?(leagues.leagues)
+        }
+        self.view.expect().call(self.view.onViewDidLoad())
+        self.presenter.viewDidLoad()
+        self.presenter.search(searchText: "test32")
+        let textLabel = self.presenter.textLabel
+        XCTAssertEqual(textLabel, self.translation.translate(for: "noLeaguesFound"))
+    }
+
+
+    func testTextLabel_leaguesNotFound_nil() {
+        let errorClosure = ArgumentClosureCaptor<ErrorCallBack>()
+        self.leagueService.expect().call(
+            self.leagueService.fetchLeagues(success: Arg.closure(), failure: errorClosure.capture())
+        ).andDo { _ in
+            errorClosure.value?(DummyError.dummy)
+        }
+        self.view.expect().call(self.view.onViewDidLoad())
+        self.presenter.viewDidLoad()
+        self.presenter.search(searchText: "test2")
+        let textLabel = self.presenter.textLabel
+        XCTAssertEqual(textLabel, self.translation.translate(for: "noLeaguesFound"))
+    }
+
+
+    func testTextLabel_leaguesTeamsFound() {
+        let leagues = Leagues(leagues: [
+            League(idLeague: "1", strLeague: "test", strSport: "Soccer", strLeagueAlternate: "test", isTeamsDownloaded: true),
+            League(idLeague: "2", strLeague: "test2", strSport: "Soccer", strLeagueAlternate: "test2", isTeamsDownloaded: true)
+        ])
+        let successClosure = ArgumentClosureCaptor<LeaguesCallBack>()
+        self.leagueService.expect().call(
+            self.leagueService.fetchLeagues(success: successClosure.capture(), failure: Arg.closure())
+        ).andDo { _ in
+            successClosure.value?(leagues.leagues)
+        }
+        self.view.expect().call(self.view.onViewDidLoad())
+        self.presenter.viewDidLoad()
+        self.presenter.search(searchText: "test2")
+        let textLabel = self.presenter.textLabel
+        XCTAssertEqual(textLabel, self.translation.translate(for: "noTeamsFound"))
+    }
+
+
+    func testTextLabel_isEmpty_teamsFound() {
+        let leagues = Leagues(leagues: [
+            League(idLeague: "1", strLeague: "test", strSport: "Soccer", strLeagueAlternate: "test", isTeamsDownloaded: true),
+            League(idLeague: "2", strLeague: "test2", strSport: "Soccer", strLeagueAlternate: "test2", isTeamsDownloaded: false)
+        ])
+        let successClosure = ArgumentClosureCaptor<LeaguesCallBack>()
+        self.leagueService.expect().call(
+            self.leagueService.fetchLeagues(success: successClosure.capture(), failure: Arg.closure())
+        ).andDo { _ in
+            successClosure.value?(leagues.leagues)
+        }
+        self.view.expect().call(self.view.onViewDidLoad())
+        self.presenter.viewDidLoad()
+        self.presenter.search(searchText: "test2")
+        let textLabel = self.presenter.textLabel
         XCTAssertEqual(textLabel, self.translation.translate(for: "noTeamsFound"))
     }
 
 
     
-    func testTextLabel_empty() {
+    func testTextLabel_nil() {
         let leagues = Leagues(leagues: [
             League(idLeague: "1", strLeague: "test", strSport: "Soccer", strLeagueAlternate: "test", isTeamsDownloaded: true),
             League(idLeague: "2", strLeague: "test2", strSport: "Soccer", strLeagueAlternate: "test2", isTeamsDownloaded: false)
@@ -135,7 +207,7 @@ final class MainPresenterTests: XCTestCase {
         self.leagueService.verify()
         self.teamService.verify()
         let text = self.presenter.textLabel
-        XCTAssertEqual(text, "")
+        XCTAssertEqual(text, nil)
     }
 
 
@@ -401,60 +473,58 @@ final class MainPresenterTests: XCTestCase {
 
 
     func testshouldPerformSegue() {
-        func testSearchText_loadTeams_success() {
-            let leagues = Leagues(leagues: [
-                League(idLeague: "1", strLeague: "test", strSport: "Soccer", strLeagueAlternate: "test", isTeamsDownloaded: true),
-                League(idLeague: "2", strLeague: "test2", strSport: "Soccer", strLeagueAlternate: "test2", isTeamsDownloaded: false)
-            ])
+        let leagues = Leagues(leagues: [
+            League(idLeague: "1", strLeague: "test", strSport: "Soccer", strLeagueAlternate: "test", isTeamsDownloaded: true),
+            League(idLeague: "2", strLeague: "test2", strSport: "Soccer", strLeagueAlternate: "test2", isTeamsDownloaded: false)
+        ])
 
-            let teams = Teams(teams: [
-                Team(
-                    idTeam: "1",
-                    idLeague: "2",
-                    strTeam: "Team",
-                    strAlternate: "Alternate team",
-                    strLeague: "League",
-                    strLeague2: "League 2",
-                    strDescriptionEN: "Description EN",
-                    strDescriptionFR: "Descitpion FR",
-                    strCountry: "France",
-                    strTeamBadge: nil,
-                    strTeamBanner: "banner.jpeg"
-                )
-            ])
-            let successClosure = ArgumentClosureCaptor<LeaguesCallBack>()
-            self.leagueService.expect().call(
-                self.leagueService.fetchLeagues(success: successClosure.capture(), failure: Arg.closure())
-            ).andDo { _ in
-                successClosure.value?(leagues.leagues)
-            }
-
-            let successTeamClosure = ArgumentClosureCaptor<TeamsCallBack>()
-            self.teamService.expect().call(
-                self.teamService.fetchTeams(from: Arg.any(), success: successTeamClosure.capture(), failure: Arg.closure())
-            ).andDo { _ in
-                self.view.expect().call(
-                    self.view.onDismissKeyboard()
-                )
-                self.view.expect().call(
-                    self.view.onSearch(Arg.eq(false), Arg.eq(false), Arg.eq(true))
-                )
-
-                self.teamService.expect().call(
-                    self.teamService.downloadImage(from: Arg.any(), success: Arg.closure(), failure: Arg.closure()),
-                    count: 0
-                )
-                successTeamClosure.value?(teams.teams)
-            }
-            self.view.expect().call(self.view.onViewDidLoad())
-            self.presenter.viewDidLoad()
-            self.presenter.search(searchText: "test2")
-            self.view.verify()
-            self.leagueService.verify()
-            self.teamService.verify()
-            let shouldPerform = self.presenter.shouldPerformSegue(for: 0)
-            XCTAssertTrue(shouldPerform)
+        let teams = Teams(teams: [
+            Team(
+                idTeam: "1",
+                idLeague: "2",
+                strTeam: "Team",
+                strAlternate: "Alternate team",
+                strLeague: "League",
+                strLeague2: "League 2",
+                strDescriptionEN: "Description EN",
+                strDescriptionFR: "Descitpion FR",
+                strCountry: "France",
+                strTeamBadge: nil,
+                strTeamBanner: "banner.jpeg"
+            )
+        ])
+        let successClosure = ArgumentClosureCaptor<LeaguesCallBack>()
+        self.leagueService.expect().call(
+            self.leagueService.fetchLeagues(success: successClosure.capture(), failure: Arg.closure())
+        ).andDo { _ in
+            successClosure.value?(leagues.leagues)
         }
+
+        let successTeamClosure = ArgumentClosureCaptor<TeamsCallBack>()
+        self.teamService.expect().call(
+            self.teamService.fetchTeams(from: Arg.any(), success: successTeamClosure.capture(), failure: Arg.closure())
+        ).andDo { _ in
+            self.view.expect().call(
+                self.view.onDismissKeyboard()
+            )
+            self.view.expect().call(
+                self.view.onSearch(Arg.eq(false), Arg.eq(false), Arg.eq(true))
+            )
+
+            self.teamService.expect().call(
+                self.teamService.downloadImage(from: Arg.any(), success: Arg.closure(), failure: Arg.closure()),
+                count: 0
+            )
+            successTeamClosure.value?(teams.teams)
+        }
+        self.view.expect().call(self.view.onViewDidLoad())
+        self.presenter.viewDidLoad()
+        self.presenter.search(searchText: "test2")
+        self.view.verify()
+        self.leagueService.verify()
+        self.teamService.verify()
+        let shouldPerform = self.presenter.shouldPerformSegue(for: 0)
+        XCTAssertTrue(shouldPerform)
     }
 
 
@@ -489,7 +559,7 @@ final class MainPresenterTests: XCTestCase {
     }
 
 
-    func testSearchText_lisEmpty() {
+    func testSearchText_listEmpty() {
         let leagues = Leagues(leagues: [
             League(idLeague: "1", strLeague: "test", strSport: "Soccer", strLeagueAlternate: "test", isTeamsDownloaded: true),
             League(idLeague: "2", strLeague: "test2", strSport: "Soccer", strLeagueAlternate: "test2", isTeamsDownloaded: false)
@@ -507,7 +577,7 @@ final class MainPresenterTests: XCTestCase {
             count: 0
         )
         self.view.expect().call(
-            self.view.onSearch(Arg.eq(false), Arg.eq(false), Arg.eq(false))
+            self.view.onSearch(Arg.eq(false), Arg.eq(true), Arg.eq(false))
         )
         self.view.expect().call(self.view.onViewDidLoad())
         self.presenter.viewDidLoad()
@@ -747,7 +817,7 @@ final class MainPresenterTests: XCTestCase {
             self.teamService.fetchTeams(from: Arg.any(), success: successTeamClosure.capture(), failure: Arg.closure())
         ).andDo { _ in
             self.view.expect().call(
-                self.view.onSearch(Arg.eq(true), Arg.eq(false), Arg.eq(false))
+                self.view.onSearch(Arg.eq(true), Arg.eq(true), Arg.eq(false))
             )
 
             self.teamService.expect().call(
@@ -784,7 +854,7 @@ final class MainPresenterTests: XCTestCase {
             self.teamService.fetchTeams(from: Arg.any(), success: successTeamClosure.capture(), failure: Arg.closure())
         ).andDo { _ in
             self.view.expect().call(
-                self.view.onSearch(Arg.eq(true), Arg.eq(false), Arg.eq(false))
+                self.view.onSearch(Arg.eq(true), Arg.eq(true), Arg.eq(false))
             )
 
             self.teamService.expect().call(
@@ -815,7 +885,7 @@ final class MainPresenterTests: XCTestCase {
         }
 
         self.view.expect().call(
-            self.view.onSearch(Arg.eq(true), Arg.eq(false), Arg.eq(false))
+            self.view.onSearch(Arg.eq(true), Arg.eq(true), Arg.eq(false))
         )
         self.view.expect().call(self.view.onViewDidLoad())
         self.presenter.viewDidLoad()
